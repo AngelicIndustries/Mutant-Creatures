@@ -1,15 +1,15 @@
 [{
-	"modid": "MutantCreatures",
-	"name": "Mutant Creatures",
+	"modid": "${modId}",
+	"name": "${modName}",
 	"description": "A mod that adds a few mutant mini-bosses of the original Minecraft mobs.",
-	"version": "${version}",
-	"mcversion": "${mcversion}",
+	"version": "${modVersion}",
+	"mcversion": "${minecraftVersion}",
 	"logoFile": "",
-	"url": "http://www.minecraftforum.net/topic/1336132-/",
+	"url": "https://github.com/AngelicIndustries/Mutant-Creatures",
 	"updateUrl": "",
-	"authorList": ["thehippomaster21"],
-	"credits": "Forge Team, MCP Team",
+	"authorList": ["thehippomaster21", "jack"],
+	"credits": "Original mod and AnimationAPI by thehippomaster21; fork contributions by astryxion and Omgise; Forge Team, MCP Team",
 	"parent": "",
 	"screenshots": [],
-	"dependencies": []
+	"dependencies": ["AnimationAPI"]
 }]

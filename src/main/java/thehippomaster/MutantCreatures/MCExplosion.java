@@ -33,7 +33,6 @@ public class MCExplosion extends Explosion {
    private Random explosionRNG = new Random();
    private World worldObj;
    private Map<EntityPlayer, Vec3> playerKnockbackMap = new HashMap<EntityPlayer, Vec3>();
-   private static final String __OBFID = "CL_00000134";
 
    public MCExplosion(World par1World, Entity par2Entity, double par3, double par5, double par7, float par9) {
       super((World)null, (Entity)null, (double)0.0F, (double)0.0F, (double)0.0F, 0.0F);

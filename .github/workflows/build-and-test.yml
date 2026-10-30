@@ -1,0 +1,15 @@
+
+name: Build and test
+
+on:
+  pull_request:
+    branches: [ Forge-1.7.10, master, main ]
+  push:
+    branches: [ Forge-1.7.10, master, main ]
+
+jobs:
+  build-and-test:
+    uses: GTNewHorizons/GTNH-Actions-Workflows/.github/workflows/build-and-test.yml@master
+    with:
+      disable-spotless-pr: true
+    secrets: inherit

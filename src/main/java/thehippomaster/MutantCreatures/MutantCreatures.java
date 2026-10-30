@@ -62,14 +62,16 @@ import thehippomaster.MutantCreatures.packet.PacketSnowGolemOwner;
 import thehippomaster.MutantCreatures.packet.PacketSpawnParticles;
 import thehippomaster.MutantCreatures.packet.PacketSpiderPigJump;
 import thehippomaster.MutantCreatures.packet.PacketZombieAttack;
-import thehippomaster.AnimationAPI.AnimationAPI;
 
 @Mod(
-   modid = "MutantCreatures",
+   modid = MutantCreatures.MODID,
    name = "Mutant Creatures",
-   version = "1.1.1"
+   version = industries.angelic.mutantcreatures.Tags.VERSION,
+   acceptedMinecraftVersions = "[1.7.10]",
+   dependencies = "required-after:AnimationAPI@[1.2.4,)"
 )
 public class MutantCreatures {
+   public static final String MODID = "MutantCreatures";
    @Instance("MutantCreatures")
    public static MutantCreatures instance;
    @SidedProxy(
@@ -111,7 +113,6 @@ public class MutantCreatures {
 
    @EventHandler
    public void preInit(FMLPreInitializationEvent e) {
-      AnimationAPI.ensureInitialized();
       Configuration cfg = new Configuration(e.getSuggestedConfigurationFile());
       cfg.load();
       spawnrate = cfg.get("general", "Spawnrate", 10).getInt();

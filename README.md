@@ -1,5 +1,7 @@
 # Mutant Creatures
 
+![logo](images/logo_small.png)
+
 Mutant mini-bosses for Minecraft 1.7.10, based on [thehippomaster21's original mod](https://www.curseforge.com/minecraft/mc-mods/mutant-creatures-mod).
 
 Adds mutant creepers, zombies, skeletons, endermen, snow golems, and spider pigs, along with Chemical X, weapons, and armor. Mutant spawning can be configured.

@@ -4,7 +4,7 @@
 	"description": "A mod that adds a few mutant mini-bosses of the original Minecraft mobs.",
 	"version": "${modVersion}",
 	"mcversion": "${minecraftVersion}",
-	"logoFile": "",
+	"logoFile": "assets/mutantcreatures/logo.png",
 	"url": "https://github.com/AngelicIndustries/Mutant-Creatures",
 	"updateUrl": "",
 	"authorList": ["thehippomaster21", "jack"],

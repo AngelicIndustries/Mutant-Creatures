@@ -71,7 +71,9 @@ import thehippomaster.MutantCreatures.packet.PacketZombieAttack;
    dependencies = "required-after:AnimationAPI@[1.2.4,)",
    customProperties = {
       @Mod.CustomProperty(k = "license", v = "AGPLv3"),
-      @Mod.CustomProperty(k = "issueTrackerUrl", v = "https://github.com/AngelicIndustries/Mutant-Creatures/issues")
+      @Mod.CustomProperty(k = "issueTrackerUrl", v = "https://github.com/AngelicIndustries/Mutant-Creatures/issues"),
+      @Mod.CustomProperty(k = "iconFile", v = "assets/mutantcreatures/logo.png"),
+      @Mod.CustomProperty(k = "backgroundFile", v = "assets/mutantcreatures/background.png")
    }
 )
 public class MutantCreatures {

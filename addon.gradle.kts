@@ -37,6 +37,13 @@ extensions.configure<PublishingExtension> {
                 name.set("Angelic Industries")
                 url.set("https://angelic.industries/")
             }
+            licenses {
+                license {
+                    name.set("GNU Affero General Public License, version 3")
+                    url.set("https://www.gnu.org/licenses/agpl-3.0.html")
+                    distribution.set("repo")
+                }
+            }
             scm {
                 url.set("https://github.com/AngelicIndustries/Mutant-Creatures")
                 connection.set("scm:git:https://github.com/AngelicIndustries/Mutant-Creatures.git")

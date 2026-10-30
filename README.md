@@ -1,22 +1,18 @@
 # Mutant Creatures
 
-Maintained fork of Mutant Creatures for Minecraft 1.7.10, adding mutant versions of familiar mobs and their equipment.
+Mutant mini-bosses for Minecraft 1.7.10, based on [thehippomaster21's original mod](https://www.curseforge.com/minecraft/mc-mods/mutant-creatures-mod).
+
+Adds mutant creepers, zombies, skeletons, endermen, snow golems, and spider pigs, along with Chemical X, weapons, and armor. Mutant spawning can be configured.
 
 [![hub](images/badges/github.png)](https://github.com/AngelicIndustries/Mutant-Creatures/releases)
-![forge](images/badges/forge.png)
 [![cord](images/badges/cord.png)](https://discord.gg/xAWCqGrguG)
-
-## Features
-
-- Mutant creepers, zombies, skeletons, endermen, snow golems, and spider pigs.
-- Chemical X mutations and creature-specific drops, weapons, and armor.
-- Configurable mutant spawning.
+![forge](images/badges/forge.png)
 
 ## Dependencies
 
-Install Minecraft 1.7.10, Forge 10.13.4.1614, and [AnimationAPI 1.2.4](https://www.curseforge.com/minecraft/mc-mods/animationapi/files/2221721) on both client and server.
+* [AnimationAPI](https://www.curseforge.com/minecraft/mc-mods/animationapi) 1.2.4 [![curse](images/icons/curse.png)](https://www.curseforge.com/minecraft/mc-mods/animationapi/files/2221721)
 
-AnimationAPI is a separate required mod. Gradle resolves it from CurseMaven for development; its code is not bundled in this JAR.
+Install on both client and server, with Forge 10.13.4.1614.
 
 ## Building
 
@@ -24,20 +20,18 @@ AnimationAPI is a separate required mod. Gradle resolves it from CurseMaven for 
 ./gradlew build
 ```
 
-The GTNH buildscript provisions its Java toolchains. Output JARs target Java 8 and are written to `build/libs/`.
-Versions come from Git; use `VERSION=1.1.1-dev ./gradlew build` to override the version locally.
-
-For development, use `./gradlew runClient25` or `./gradlew runServer25`. The standard Angelic development mods are runtime-only and are not published as dependencies. Local game data is under `run/`.
-
-Maven publishing targets the Angelic Maven. Modrinth, CurseForge, and 67minecraft publishing can be enabled by filling in their project IDs in `gradle.properties` and configuring the corresponding CI secrets.
-
 ## Credits
 
-- thehippomaster21 — original Mutant Creatures and AnimationAPI.
-- [astryxion](https://github.com/astryxion/Mutant-Creatures) and [Omgise](https://github.com/Omgise/Mutant-Creatures) — previous forks and fixes.
-- jack / [Angelic Industries](https://angelic.industries/) — maintenance.
-- Forge and MCP teams; [GTNewHorizons](https://github.com/GTNewHorizons/ExampleMod1.7.10) — modern build tooling.
+* thehippomaster21 for the original Mutant Creatures and AnimationAPI
+* [astryxion](https://github.com/astryxion/Mutant-Creatures) and [Omgise](https://github.com/Omgise/Mutant-Creatures) for previous forks and fixes
+* The Forge and MCP teams
+* [GT:NH buildscript](https://github.com/GTNewHorizons/ExampleMod1.7.10)
 
 ## License
 
-The inherited source tree does not include a license file. This build migration does not assign a new license to the original code or assets.
+[AGPLv3](LICENSE), as specified by the [original project's license](https://www.curseforge.com/minecraft/mc-mods/mutant-creatures-mod/license).
+
+## Buy me some creatine
+
+* [ko-fi.com](https://ko-fi.com/jackisasubtlejoke)
+* Monero: `893tQ56jWt7czBsqAGPq8J5BDnYVCg2tvKpvwTcMY1LS79iDabopdxoUzNLEZtRTH4ewAcKLJ4DM4V41fvrJGHgeKArxwmJ`

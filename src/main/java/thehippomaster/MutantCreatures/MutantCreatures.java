@@ -68,7 +68,11 @@ import thehippomaster.MutantCreatures.packet.PacketZombieAttack;
    name = "Mutant Creatures",
    version = industries.angelic.mutantcreatures.Tags.VERSION,
    acceptedMinecraftVersions = "[1.7.10]",
-   dependencies = "required-after:AnimationAPI@[1.2.4,)"
+   dependencies = "required-after:AnimationAPI@[1.2.4,)",
+   customProperties = {
+      @Mod.CustomProperty(k = "license", v = "AGPLv3"),
+      @Mod.CustomProperty(k = "issueTrackerUrl", v = "https://github.com/AngelicIndustries/Mutant-Creatures/issues")
+   }
 )
 public class MutantCreatures {
    public static final String MODID = "MutantCreatures";

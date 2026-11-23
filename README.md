@@ -6,6 +6,8 @@ Mutant mini-bosses for Minecraft 1.7.10, based on [thehippomaster21's original m
 
 Adds mutant creepers, zombies, skeletons, endermen, snow golems, and spider pigs, along with Chemical X, weapons, and armor. Mutant spawning and the mobs Chemical X can take can be configured.
 
+With [Special Mobs](https://www.curseforge.com/minecraft/mc-mods/special-mobs) installed, there is also a hungry mutant zombie, made from Special Mobs' hungry zombie with Chemical X. Its belly is eaten away down to the ribs and spine. It grabs you, lifts you to its face and bites, eating the food out of your inventory to heal, and it goes after food lying on the ground. Whatever it eats falls straight out through its belly.
+
 [![hub](images/badges/github.png)](https://github.com/AngelicIndustries/Mutant-Creatures/releases)
 [![cord](images/badges/cord.png)](https://discord.gg/xAWCqGrguG)
 ![forge](images/badges/forge.png)
@@ -13,6 +15,8 @@ Adds mutant creepers, zombies, skeletons, endermen, snow golems, and spider pigs
 ## Dependencies
 
 * [AnimationAPI](https://www.curseforge.com/minecraft/mc-mods/animationapi) 1.2.4 [![curse](images/icons/curse.png)](https://www.curseforge.com/minecraft/mc-mods/animationapi/files/2221721)
+* [Salamander](https://github.com/AngelicIndustries/Salamander) 0.0.2 or newer [![curse](images/icons/curse.png)](https://www.curseforge.com/minecraft/mc-mods/salamander) [![67](images/icons/67.png)](https://67minecraft.com/mod/salamander) [![git](images/icons/git.png)](https://github.com/AngelicIndustries/Salamander/releases)
+* Optional: [Special Mobs](https://www.curseforge.com/minecraft/mc-mods/special-mobs) 4.2.3 [![curse](images/icons/curse.png)](https://www.curseforge.com/minecraft/mc-mods/special-mobs)
 
 Install on both client and server, with Forge 10.13.4.1614.
 

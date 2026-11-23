@@ -73,6 +73,11 @@ public class ChemicalX extends Item {
       }
    }
 
+   /** Maps a mob to the mutant Chemical X turns it into. */
+   public static void addMutant(Class<? extends EntityLivingBase> mob, Class<? extends EntityLivingBase> mutant) {
+      mcMap.put(mob, mutant);
+   }
+
    public static boolean containsMutant(EntityLivingBase living) {
       for(Class key : mcMap.keySet()) {
          if (living.getClass().isAssignableFrom((Class)mcMap.get(key))) {

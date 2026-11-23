@@ -11,5 +11,5 @@
 	"credits": "Original mod and AnimationAPI by thehippomaster21; fork contributions by astryxion and Omgise; Forge Team, MCP Team",
 	"parent": "",
 	"screenshots": [],
-	"dependencies": ["AnimationAPI"]
+	"dependencies": ["AnimationAPI", "salamander"]
 }]

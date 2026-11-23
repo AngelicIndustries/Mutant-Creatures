@@ -1,6 +1,26 @@
 dependencies {
     api(rfg.deobf("curse.maven:animationapi-77191:2221721")) {transitive = false} // 1.2.4
 
+    // Supply a local Salamander development jar with -PsalamanderJar, e.g. a build with unpublished changes.
+    def salamanderDependency = "industries.angelic.salamander:Salamander:0.0.2:dev"
+    if (project.hasProperty("salamanderJar")) {
+        def salamanderJar = file(project.property("salamanderJar"))
+        if (!salamanderJar.isFile()) {
+            throw new GradleException("Salamander development jar not found: ${salamanderJar}")
+        }
+        salamanderDependency = files(salamanderJar)
+    }
+    // GeckoLib models for the newer mutants
+    implementation(salamanderDependency)
+    runtimeOnlyNonPublishable(rfg.deobf("curse.maven:special-mobs-59968:7581890")) // 4.2.3, for the hungry mutant zombie
+
+    testImplementation("junit:junit:4.13.2")
+    // GTNHLib provides JOML in game through its dependency loader; Salamander's CPU renderer needs it in tests.
+    testImplementation("org.joml:joml:1.10.9")
+    // Salamander's Java 8 artifact calls the stubs normally provided by the GTNH runtime loader.
+    testRuntimeOnly("xyz.wagyourtail.jvmdowngrader:jvmdowngrader-java-api:2.0.1:downgraded-8")
+    testRuntimeOnly("org.lwjgl.lwjgl:lwjgl:2.9.3") { transitive = false } // BufferUtils in Salamander's renderer
+
     runtimeOnlyNonPublishable("industries.angelic.wawelauth:WawelAuth:996a655-snapshot:dev")
     runtimeOnlyNonPublishable("com.github.GTNewHorizons:Hodgepodge:2.7.216:dev")
     runtimeOnlyNonPublishable("com.github.GTNewHorizons:NotEnoughItems:2.8.157-GTNH:dev")

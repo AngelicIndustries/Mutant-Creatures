@@ -89,9 +89,7 @@ public class ModelMutantZombie extends ModelBase {
 
    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
       MutantZombie zombie = (MutantZombie)entity;
-      this.setAngles();
-      this.animTick = MutantCreatures.proxy.getPartialTicks();
-      this.animate(zombie, f, f1, f2, f3, f4, f5);
+      this.pose(zombie, f, f1, f2, f3, f4, f5, MutantCreatures.proxy.getPartialTicks());
       if (zombie.getVillager()) {
          this.head.showModel = false;
          this.villagerHead.showModel = true;
@@ -101,6 +99,13 @@ public class ModelMutantZombie extends ModelBase {
       }
 
       this.pelvis.render(f5);
+   }
+
+   /** Sets the angles of every part for this frame without drawing, for the hungry mutant zombie's rig. */
+   public void pose(MutantZombie zombie, float f, float f1, float f2, float f3, float f4, float f5, float partialTicks) {
+      this.setAngles();
+      this.animTick = partialTicks;
+      this.animate(zombie, f, f1, f2, f3, f4, f5);
    }
 
    public void setAngles() {

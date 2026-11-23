@@ -51,5 +51,8 @@
 	
 	"spiderpig.charge": {"category": "hostile", "sounds": [
 		"spiderpig/charge"
-	]}
+	]},
+	
+	
+	"creeperminion.pleased": {"category": "neutral", "sounds": ["minion/pleased"]}
 }

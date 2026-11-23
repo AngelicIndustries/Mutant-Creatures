@@ -281,6 +281,8 @@ public class CreeperMinion extends EntityCreeper {
                      this.setBlastRadius(this.getBlastRadius() + 0.2F);
                   }
 
+                  // A fuse that catches and dies down: it now outlasts its blasts, or blows bigger.
+                  this.worldObj.playSoundAtEntity(this, "game.tnt.primed", 0.5F, 1.2F);
                   takeItem = true;
                }
 
@@ -292,6 +294,7 @@ public class CreeperMinion extends EntityCreeper {
                   }
 
                   this.heal((float)i);
+                  this.worldObj.playSoundAtEntity(this, "MutantCreatures:creeperminion.pleased", 1.0F, 0.95F + this.rand.nextFloat() * 0.1F);
                   takeItem = true;
                }
 

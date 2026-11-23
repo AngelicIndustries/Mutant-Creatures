@@ -4,7 +4,7 @@
 
 Mutant mini-bosses for Minecraft 1.7.10, based on [thehippomaster21's original mod](https://www.curseforge.com/minecraft/mc-mods/mutant-creatures-mod).
 
-Adds mutant creepers, zombies, skeletons, endermen, snow golems, and spider pigs, along with Chemical X, weapons, and armor. Mutant spawning can be configured.
+Adds mutant creepers, zombies, skeletons, endermen, snow golems, and spider pigs, along with Chemical X, weapons, and armor. Mutant spawning and the mobs Chemical X can take can be configured.
 
 [![hub](images/badges/github.png)](https://github.com/AngelicIndustries/Mutant-Creatures/releases)
 [![cord](images/badges/cord.png)](https://discord.gg/xAWCqGrguG)
@@ -28,6 +28,7 @@ Install on both client and server, with Forge 10.13.4.1614.
 * [astryxion](https://github.com/astryxion/Mutant-Creatures) and [Omgise](https://github.com/Omgise/Mutant-Creatures) for previous forks and fixes
 * The Forge and MCP teams
 * [GT:NH buildscript](https://github.com/GTNewHorizons/ExampleMod1.7.10)
+* A fed creeper minion's hiss is an excerpt (1.45-2.25 s) from ["Snake hissing.mp3"](https://freesound.org/people/schreibsel/sounds/540162/) by schreibsel, [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
 
 ## License
 

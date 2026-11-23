@@ -4,3 +4,5 @@
 * Add Catalogue Vintage artwork, license information, and an issue tracker link.
 * Use the original CurseForge project image as the logo and a mutant-enderman screenshot as the Catalogue background.
 * Include the upstream AGPLv3 license and update the README.
+* Add a Chemical X mob list (`ChemicalXMobs`, flipped by `ChemicalXMobsIsWhitelist`). By default Chemical X only takes the mobs that have a mutant form, instead of killing any mob without a boss health bar.
+* Feeding a creeper minion gunpowder makes it hiss contentedly (a CC0 recording), and feeding it TNT plays a short fuse.

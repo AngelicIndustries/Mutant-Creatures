@@ -42,7 +42,7 @@ public class ChemicalXEntity extends EntityThrowable {
 
          while(!list.isEmpty()) {
             living = (EntityLiving)list.remove(this.rand.nextInt(list.size()));
-            if (!living.equals(this.getThrower()) && !ChemicalX.containsMutant(living)) {
+            if (!living.equals(this.getThrower()) && !ChemicalX.containsMutant(living) && MutantCreatures.isChemicalXTarget(living)) {
                double dist = this.getDistanceSqToEntity(living);
                if (dist < (double)144.0F) {
                   break;
@@ -61,6 +61,10 @@ public class ChemicalXEntity extends EntityThrowable {
          }
 
          if (living != null && ChemicalX.containsMutant(living)) {
+            living = null;
+         }
+
+         if (living != null && !MutantCreatures.isChemicalXTarget(living)) {
             living = null;
          }
 

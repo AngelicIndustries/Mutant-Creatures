@@ -15,13 +15,17 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
@@ -108,6 +112,8 @@ public class MutantCreatures {
    private static boolean spawnEndermanEnd;
    private static boolean spawnSkeleton;
    private static boolean spawnSpiderPig;
+   private static Set<String> chemicalXMobs = new HashSet<String>();
+   private static boolean chemicalXMobsIsWhitelist = true;
    public static final String[] fTimer;
    public static final String[] fThrower;
    public static final String[] fShowModel;
@@ -128,6 +134,8 @@ public class MutantCreatures {
       spawnEndermanEnd = cfg.get("general", "SpawnMutantEndermanInTheEnd", true).getBoolean(true);
       spawnSkeleton = cfg.get("general", "SpawnMutantSkeleton", true).getBoolean(true);
       spawnSpiderPig = cfg.get("general", "SpawnSpiderPig", true).getBoolean(true);
+      chemicalXMobs = new HashSet<String>(Arrays.asList(cfg.get("general", "ChemicalXMobs", new String[]{"Creeper", "Zombie", "Enderman", "SnowMan", "Skeleton"}, "Mobs Chemical X can take, by entity name (such as Creeper or MoCreatures.Wyvern). It kills the mob it takes and sometimes leaves a mutant in its place, so a mob without a mutant form simply dies. Mobs with a boss health bar and mutants are never taken. A whitelist or blacklist, depending on ChemicalXMobsIsWhitelist. By default only the mobs that have a mutant form.").getStringList()));
+      chemicalXMobsIsWhitelist = cfg.get("general", "ChemicalXMobsIsWhitelist", true, "Whether ChemicalXMobs lists the only mobs Chemical X takes (true) or the mobs it leaves alone (false).").getBoolean(true);
       cfg.save();
       mcHandler = new MCHandler();
       MinecraftForge.EVENT_BUS.register(mcHandler);
@@ -242,6 +250,12 @@ public class MutantCreatures {
 
    public static boolean isSpiderPigEnabled() {
       return spawnSpiderPig;
+   }
+
+   /** Whether Chemical X may take this mob, per ChemicalXMobs. */
+   public static boolean isChemicalXTarget(EntityLivingBase living) {
+      String name = EntityList.getEntityString(living);
+      return chemicalXMobsIsWhitelist == (name != null && chemicalXMobs.contains(name));
    }
 
    public static boolean isClient() {

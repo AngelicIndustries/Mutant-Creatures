@@ -3,6 +3,7 @@ package thehippomaster.MutantCreatures;
 import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
@@ -45,8 +46,7 @@ public class ZombieResurrect {
 
          --this.tick;
          if (!this.worldObj.isRemote && this.tick <= 0) {
-            Zombie zombie = new Zombie(this.worldObj);
-            zombie.leader = mutantZombie;
+            EntityZombie zombie = mutantZombie.createMinion((double)this.posX + (double)0.5F, (double)this.posY + (double)1.0F, (double)this.posZ + (double)0.5F);
             if (mutantZombie.getVillager() && this.rand.nextInt(3) == 0) {
                zombie.setVillager(true);
             }
@@ -58,7 +58,6 @@ public class ZombieResurrect {
 
             zombie.setAttackTarget(this.target);
             zombie.setRevengeTarget(this.target);
-            zombie.setPosition((double)this.posX + (double)0.5F, (double)this.posY + (double)1.0F, (double)this.posZ + (double)0.5F);
             this.worldObj.spawnEntityInWorld(zombie);
             return false;
          } else {

@@ -66,6 +66,7 @@ public class MCAIZombieThrow extends EntityAIBase {
             this.hit = 0;
             this.mutantZombie.setThrowAttackHit(true);
             this.attackTarget.attackEntityFrom(DamageSource.causeMobDamage(this.mutantZombie), 12.0F);
+            this.mutantZombie.onAttackHit(this.attackTarget);
             double x = this.attackTarget.posX - this.mutantZombie.posX;
             double z = this.attackTarget.posZ - this.mutantZombie.posZ;
             double d = Math.sqrt(x * x + z * z);

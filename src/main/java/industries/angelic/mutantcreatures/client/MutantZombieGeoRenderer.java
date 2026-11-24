@@ -1,40 +1,62 @@
 package industries.angelic.mutantcreatures.client;
 
+import java.util.Map;
+
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 
 import org.lwjgl.opengl.GL11;
 
+import com.geckolib.animatable.GeoAnimatable;
+import com.geckolib.animation.AnimationProcessor;
 import com.geckolib.animation.state.ModelPose;
+import com.geckolib.cache.animation.Animation;
+import com.geckolib.loading.math.MolangContext;
 import com.geckolib.renderer.GeoEntityRenderer;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import industries.angelic.mutantcreatures.entity.HungryMutantZombie;
+import thehippomaster.MutantCreatures.MutantZombie;
 
+/**
+ * Renders a mutant zombie variant with a GeckoLib model. The mutant zombie's own animation code poses the shared
+ * bones through {@link MutantZombieRig}; the variant's own attacks are clips, sampled at the attack's tick so they
+ * stay in step with the server.
+ */
 @SideOnly(Side.CLIENT)
-public class HungryMutantZombieRenderer extends GeoEntityRenderer<HungryMutantZombie> {
+public class MutantZombieGeoRenderer<T extends MutantZombie & GeoAnimatable> extends GeoEntityRenderer<T> {
 
     private final MutantZombieRig rig = new MutantZombieRig();
+    private final String clipPrefix;
+    private final Map<Integer, String> clips;
 
-    public HungryMutantZombieRenderer() {
-        super(new HungryMutantZombieModel(), 1.5F);
+    /**
+     * @param clipPrefix animation name prefix, e.g. {@code animation.hungry_mutant_zombie.}
+     * @param clips      clip name for each of the variant's attack IDs
+     */
+    public MutantZombieGeoRenderer(MutantZombieGeoModel<T> model, String clipPrefix, Map<Integer, String> clips) {
+        super(model, 1.5F);
+        this.clipPrefix = clipPrefix;
+        this.clips = clips;
         withScale(1.3F);
     }
 
     @Override
-    protected void applyRenderPose(HungryMutantZombie zombie, ModelPose pose, float limbSwing, float limbSwingAmount,
-        float netHeadYaw, float headPitch, float partialTicks) {
+    protected void applyRenderPose(T zombie, ModelPose pose, float limbSwing, float limbSwingAmount, float netHeadYaw,
+        float headPitch, float partialTicks) {
         float age = zombie.ticksExisted + partialTicks;
         this.rig.apply(zombie, pose, limbSwing, limbSwingAmount, age, netHeadYaw, headPitch, partialTicks);
-        if (zombie.deathTick <= 0) {
-            HungryMutantZombieClips.apply(
-                getGeoModel().getBakedAnimations(zombie),
-                pose,
-                zombie.currentAttackID,
-                zombie.animTick + partialTicks);
-        }
+        if (zombie.deathTick > 0) return;
+
+        String clip = this.clips.get(zombie.currentAttackID);
+        Animation animation = clip == null ? null
+            : getGeoModel().getBakedAnimations(zombie)
+                .getAnimation(this.clipPrefix + clip);
+        if (animation == null) return;
+
+        double time = Math.min((zombie.animTick + partialTicks) / 20.0, animation.length());
+        pose.apply(AnimationProcessor.evaluate(animation, time, MolangContext.EMPTY), true);
     }
 
     /**
@@ -49,9 +71,9 @@ public class HungryMutantZombieRenderer extends GeoEntityRenderer<HungryMutantZo
             || mob.hasCustomNameTag() && mob == this.renderManager.field_147941_i);
     }
 
-    /** Fades out while it burns away, as the mutant zombie does. */
+    /** Fades out while it vanishes for good, as the mutant zombie does. */
     @Override
-    public int getRenderColor(HungryMutantZombie zombie, float partialTicks) {
+    public int getRenderColor(T zombie, float partialTicks) {
         if (zombie.vanishTick <= 0) return 0xFFFFFFFF;
         float alpha = 1.0F - (zombie.vanishTick + partialTicks) / zombie.maxVanishTime() * 0.6F;
         return (int) (MathHelper.clamp_float(alpha, 0, 1) * 255) << 24 | 0xFFFFFF;
@@ -61,7 +83,7 @@ public class HungryMutantZombieRenderer extends GeoEntityRenderer<HungryMutantZo
     @Override
     protected void rotateCorpse(EntityLivingBase living, float ageInTicks, float bodyYaw, float partialTicks) {
         GL11.glRotatef(180.0F - bodyYaw, 0.0F, 1.0F, 0.0F);
-        HungryMutantZombie zombie = (HungryMutantZombie) living;
+        MutantZombie zombie = (MutantZombie) living;
         int pitch = Math.min(20, zombie.deathTick);
         boolean reviving = false;
         if (zombie.deathTick > zombie.maxDeathTime() - 40) {

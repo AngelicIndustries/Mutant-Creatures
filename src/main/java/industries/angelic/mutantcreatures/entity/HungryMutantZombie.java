@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -20,6 +21,7 @@ import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.util.GeckoLibUtil;
 
+import industries.angelic.mutantcreatures.compat.SpecialMobsCompat;
 import industries.angelic.mutantcreatures.entity.ai.AIHungryDevour;
 import industries.angelic.mutantcreatures.entity.ai.AIHungryEat;
 import thehippomaster.MutantCreatures.MutantZombie;
@@ -73,14 +75,28 @@ public class HungryMutantZombie extends MutantZombie implements GeoEntity {
     }
 
     /**
-     * Where a grabbed target is held, feet at the returned y: centred between the hands of the devour clip, which
-     * hold it up to the face, 1.45 blocks in front of the body and 3.15 blocks up.
+     * Where its hands are on each tick of the devour clip, in blocks in front of and above its feet, between the two
+     * hands. Taken from the model posed by the clip, so a grabbed target moves with the arms.
      */
-    public double[] holdPosition(Entity target) {
+    private static final float[] GRIP_FORWARD = {
+        0.33F, 0.56F, 0.79F, 1.02F, 1.22F, 1.40F, 1.55F, 1.66F, 1.74F, 1.77F, 1.76F, 1.70F, 1.59F, 1.44F, 1.26F,
+        1.26F, 1.31F, 1.36F, 1.41F, 1.40F, 1.36F, 1.32F, 1.28F, 1.26F, 1.26F, 1.26F, 1.31F, 1.36F, 1.41F, 1.40F,
+        1.36F, 1.32F, 1.28F, 1.26F, 1.26F, 1.26F, 1.31F, 1.36F, 1.41F, 1.40F, 1.36F, 1.32F, 1.28F, 1.26F, 1.26F,
+        1.36F, 1.36F, 1.23F, 1.61F, 1.76F, 1.66F, 1.34F, 0.83F, 0.74F, 0.64F, 0.54F, 0.43F, 0.41F, 0.38F, 0.36F,
+        0.33F };
+    private static final float[] GRIP_UP = {
+        0.73F, 0.76F, 0.84F, 0.95F, 1.10F, 1.29F, 1.50F, 1.74F, 2.00F, 2.27F, 2.55F, 2.65F, 2.81F, 2.98F, 3.13F,
+        3.13F, 3.04F, 2.95F, 2.86F, 2.87F, 2.95F, 3.03F, 3.10F, 3.13F, 3.13F, 3.13F, 3.04F, 2.95F, 2.86F, 2.87F,
+        2.95F, 3.03F, 3.10F, 3.13F, 3.13F, 3.13F, 3.04F, 2.95F, 2.86F, 2.87F, 2.95F, 3.03F, 3.10F, 3.13F, 3.13F,
+        3.33F, 3.52F, 3.70F, 3.14F, 2.50F, 1.85F, 1.27F, 0.84F, 0.76F, 0.70F, 0.65F, 0.61F, 0.63F, 0.66F, 0.69F,
+        0.73F };
+
+    /** Where a grabbed target is held on this tick of the devour: centred in its hands, feet at the returned y. */
+    public double[] holdPosition(Entity target, int tick) {
+        int i = Math.max(0, Math.min(GRIP_FORWARD.length - 1, tick));
         float yaw = this.renderYawOffset * (float) Math.PI / 180.0F;
-        double forward = 1.45D;
-        return new double[] { this.posX - MathHelper.sin(yaw) * forward, this.posY + 3.15D - target.height * 0.5D,
-            this.posZ + MathHelper.cos(yaw) * forward };
+        return new double[] { this.posX - MathHelper.sin(yaw) * GRIP_FORWARD[i],
+            this.posY + GRIP_UP[i] - target.height * 0.5D, this.posZ + MathHelper.cos(yaw) * GRIP_FORWARD[i] };
     }
 
     /** Takes up to 8 of a random food from the player's inventory, or null if they carry none. */
@@ -127,6 +143,13 @@ public class HungryMutantZombie extends MutantZombie implements GeoEntity {
 
     public void playBurpSound() {
         this.worldObj.playSoundAtEntity(this, "random.burp", 1.0F, 0.5F + this.rand.nextFloat() * 0.1F);
+    }
+
+    /** Its roar raises Special Mobs' hungry zombies. */
+    @Override
+    public EntityZombie createMinion(double x, double y, double z) {
+        EntityZombie minion = SpecialMobsCompat.createMinion("HungryZombie", this, x, y, z);
+        return minion != null ? minion : super.createMinion(x, y, z);
     }
 
     @Override

@@ -20,7 +20,8 @@ import thehippomaster.MutantCreatures.MutantCreatures;
 public class AIHungryDevour extends EntityAIBase {
 
     private static final int GRAB = 10;
-    private static final int FLING = 46;
+    /** The throw: the arms swing forward from the top of their wind-up. */
+    private static final int FLING = 48;
     private static final int END = 60;
 
     private final HungryMutantZombie zombie;
@@ -66,7 +67,7 @@ public class AIHungryDevour extends EntityAIBase {
         }
 
         if (tick == GRAB && this.target.isEntityAlive() && this.target.ridingEntity == null) {
-            double[] hold = this.zombie.holdPosition(this.target);
+            double[] hold = this.zombie.holdPosition(this.target, tick);
             double dx = hold[0] - this.target.posX;
             double dz = hold[2] - this.target.posZ;
             if (dx * dx + dz * dz < 2.5D * 2.5D && Math.abs(hold[1] - this.target.posY) < 2.5D) {
@@ -87,16 +88,19 @@ public class AIHungryDevour extends EntityAIBase {
                 this.held = null;
                 return;
             }
-            this.pull();
+            this.pull(tick);
         }
     }
 
-    /** Pulls the held target to the face; for players the velocity is sent each tick, as their client moves them. */
-    private void pull() {
-        double[] hold = this.zombie.holdPosition(this.held);
-        this.held.motionX = (hold[0] - this.held.posX) * 0.5D;
-        this.held.motionY = (hold[1] - this.held.posY) * 0.5D + 0.08D;
-        this.held.motionZ = (hold[2] - this.held.posZ) * 0.5D;
+    /**
+     * Moves the held target to where the hands are on the next tick, so it follows the arms. For players the
+     * velocity is sent each tick, as their client moves them.
+     */
+    private void pull(int tick) {
+        double[] hold = this.zombie.holdPosition(this.held, tick + 1);
+        this.held.motionX = hold[0] - this.held.posX;
+        this.held.motionY = hold[1] - this.held.posY;
+        this.held.motionZ = hold[2] - this.held.posZ;
         this.held.fallDistance = 0;
         sendVelocity(this.held);
     }

@@ -14,6 +14,7 @@ import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -202,6 +203,8 @@ public class MutantZombie extends EntityMob {
                if (this.rand.nextInt(5) == 0) {
                   living.addPotionEffect(new PotionEffect(Potion.hunger.id, 160, 1));
                }
+
+               this.onAttackHit(living);
             }
          }
       }
@@ -287,6 +290,23 @@ public class MutantZombie extends EntityMob {
    public void knockBack(Entity entity, float dmg, double d, double d1) {
    }
 
+   /** Called when its ground slam or leap hits something, after the damage. */
+   public void onAttackHit(EntityLivingBase target) {
+   }
+
+   /** The zombie its roar raises at this position, already following it. */
+   public EntityZombie createMinion(double x, double y, double z) {
+      Zombie zombie = new Zombie(this.worldObj);
+      zombie.leader = this;
+      zombie.setPosition(x, y, z);
+      return zombie;
+   }
+
+   /** Whether it is burning away while it lies dead, instead of reviving. */
+   protected boolean isVanishing() {
+      return this.isBurning();
+   }
+
    public int maxDeathTime() {
       return 140;
    }
@@ -306,7 +326,7 @@ public class MutantZombie extends EntityMob {
 
    protected void onDeathUpdate() {
       ++this.deathTick;
-      if (this.isBurning()) {
+      if (this.isVanishing()) {
          ++this.vanishTick;
       } else {
          this.vanishTick = Math.max(0, this.vanishTick - 1);

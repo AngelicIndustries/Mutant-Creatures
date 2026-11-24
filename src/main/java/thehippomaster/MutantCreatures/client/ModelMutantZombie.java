@@ -26,13 +26,15 @@ public class ModelMutantZombie extends ModelBase {
    public ModelRenderer foreleg2;
    protected float animTick;
    public static final float PI = (float)Math.PI;
+   /** The legs are bent at rest; this height puts the bottom of the shins on the ground. */
+   public static final float PELVIS_Y = 11.1825F;
 
    public ModelMutantZombie() {
       this.textureWidth = 128;
       this.textureHeight = 128;
       this.animTick = 0.0F;
       this.pelvis = new ModelRenderer(this);
-      this.pelvis.setRotationPoint(0.0F, 10.0F, 6.0F);
+      this.pelvis.setRotationPoint(0.0F, PELVIS_Y, 6.0F);
       this.waist = new ModelRenderer(this, 0, 44);
       this.waist.addBox(-7.0F, -16.0F, -6.0F, 14, 16, 12);
       this.pelvis.addChild(this.waist);
@@ -109,7 +111,7 @@ public class ModelMutantZombie extends ModelBase {
    }
 
    public void setAngles() {
-      this.pelvis.rotationPointY = 10.0F;
+      this.pelvis.rotationPointY = PELVIS_Y;
       this.waist.rotateAngleX = 0.19634955F;
       this.chest.rotateAngleX = ((float)Math.PI / 6F);
       this.chest.rotateAngleY = 0.0F;

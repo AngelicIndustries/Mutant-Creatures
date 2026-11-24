@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -28,6 +29,9 @@ import net.minecraft.util.ResourceLocation;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import com.geckolib.animation.state.ModelPose;
 import com.geckolib.cache.model.BakedGeoModel;
@@ -37,26 +41,39 @@ import com.geckolib.renderer.base.GeoModelRenderer;
 import thehippomaster.MutantCreatures.client.ModelMutantZombie;
 
 /**
- * The hungry mutant zombie's geo model shares every part with the mutant zombie's Java model and adds a spine. These
- * tests check that the shared parts come out vertex for vertex and UV for UV the same, at rest and posed by the rig.
+ * Each mutant zombie variant's geo model shares every part with the mutant zombie's Java model and adds bones of
+ * its own. These tests check that the shared parts come out vertex for vertex and UV for UV the same, at rest and
+ * posed by the rig.
  */
-public class HungryMutantZombieModelTest {
+@RunWith(Parameterized.class)
+public class MutantZombieVariantModelTest {
 
-    static final Path MODEL = Paths
-        .get("src/main/resources/assets/mutantcreatures/geckolib/models/hungry_mutant_zombie.geo.json");
+    @Parameters(name = "{0}")
+    public static Collection<Object[]> variants() {
+        return Arrays.asList(
+            new Object[] { "hungry_mutant_zombie", Arrays.asList("spine") },
+            new Object[] { "fire_mutant_zombie", Arrays.asList("head_coals", "back_coals") });
+    }
+
+    private final String name;
     /** Bones the Java model doesn't have. */
-    static final Set<String> NEW_BONES = new HashSet<>(Arrays.asList("spine"));
+    private final Set<String> newBones;
 
-    static BakedGeoModel load() throws Exception {
-        try (Reader reader = Files.newBufferedReader(MODEL, StandardCharsets.UTF_8)) {
-            return new GeckoLibGsonLoader()
-                .loadModel(new ResourceLocation("mutantcreatures", "hungry_mutant_zombie"), reader);
+    public MutantZombieVariantModelTest(String name, List<String> newBones) {
+        this.name = name;
+        this.newBones = new HashSet<>(newBones);
+    }
+
+    static BakedGeoModel load(String name) throws Exception {
+        Path path = Paths.get("src/main/resources/assets/mutantcreatures/geckolib/models/" + name + ".geo.json");
+        try (Reader reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
+            return new GeckoLibGsonLoader().loadModel(new ResourceLocation("mutantcreatures", name), reader);
         }
     }
 
     @Test
     public void restPoseMatchesJavaModel() throws Exception {
-        BakedGeoModel geo = load();
+        BakedGeoModel geo = load(this.name);
         MutantZombieRig rig = new MutantZombieRig();
         rig.model()
             .setAngles();
@@ -65,7 +82,7 @@ public class HungryMutantZombieModelTest {
 
     @Test
     public void rigCopiesArbitraryJavaPoses() throws Exception {
-        BakedGeoModel geo = load();
+        BakedGeoModel geo = load(this.name);
         Random random = new Random(42);
         for (int i = 0; i < 20; i++) {
             MutantZombieRig rig = new MutantZombieRig();
@@ -98,7 +115,7 @@ public class HungryMutantZombieModelTest {
             model.foreleg2);
     }
 
-    private static void compare(BakedGeoModel geo, MutantZombieRig rig) throws Exception {
+    private void compare(BakedGeoModel geo, MutantZombieRig rig) throws Exception {
         ModelPose pose = ModelPose.create(geo);
         rig.copyTo(pose);
 
@@ -110,7 +127,7 @@ public class HungryMutantZombieModelTest {
         GeoModelRenderer.render(
             geo,
             pose,
-            bone -> !NEW_BONES.contains(bone.name()),
+            bone -> !this.newBones.contains(bone.name()),
             (x, y, z, u, v, nx, ny, nz, r, g, b, a) -> vertices.add(new float[] { x * 16, y * 16, z * 16, u, v }),
             1,
             1,

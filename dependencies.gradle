@@ -12,7 +12,7 @@ dependencies {
     }
     // GeckoLib models for the newer mutants
     implementation(salamanderDependency)
-    runtimeOnlyNonPublishable(rfg.deobf("curse.maven:special-mobs-59968:7581890")) // 4.2.3, for the hungry mutant zombie
+    devOnlyNonPublishable(rfg.deobf("curse.maven:special-mobs-59968:7581890")) // 4.2.3: the mutants of its zombies, and the mixin into them
 
     testImplementation("junit:junit:4.13.2")
     // GTNHLib provides JOML in game through its dependency loader; Salamander's CPU renderer needs it in tests.

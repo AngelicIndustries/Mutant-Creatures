@@ -66,9 +66,11 @@ import thehippomaster.MutantCreatures.packet.PacketSnowGolemOwner;
 import thehippomaster.MutantCreatures.packet.PacketSpawnParticles;
 import thehippomaster.MutantCreatures.packet.PacketSpiderPigJump;
 import thehippomaster.MutantCreatures.packet.PacketZombieAttack;
+import industries.angelic.mutantcreatures.compat.EtFuturumCompat;
 import industries.angelic.mutantcreatures.compat.SpecialMobsCompat;
 import industries.angelic.mutantcreatures.entity.FireMutantZombie;
 import industries.angelic.mutantcreatures.entity.HungryMutantZombie;
+import industries.angelic.mutantcreatures.entity.MutantHusk;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -120,6 +122,7 @@ public class MutantCreatures {
    private static boolean spawnSpiderPig;
    private static boolean spawnHungryZombie;
    private static boolean spawnFireZombie;
+   private static boolean spawnHusk;
    private static Set<String> chemicalXMobs = new HashSet<String>();
    private static boolean chemicalXMobsIsWhitelist = true;
    public static final String[] fTimer;
@@ -143,8 +146,9 @@ public class MutantCreatures {
       spawnSkeleton = cfg.get("general", "SpawnMutantSkeleton", true).getBoolean(true);
       spawnSpiderPig = cfg.get("general", "SpawnSpiderPig", true).getBoolean(true);
       spawnHungryZombie = cfg.get("general", "SpawnHungryMutantZombie", true, "Spawn hungry mutant zombies. Only with Special Mobs installed.").getBoolean(true);
+      spawnHusk = cfg.get("general", "SpawnMutantHusk", true, "Spawn mutant husks in deserts.").getBoolean(true);
       spawnFireZombie = cfg.get("general", "SpawnFireMutantZombie", true, "Spawn fire mutant zombies, in the Overworld and the Nether. Only with Special Mobs installed.").getBoolean(true);
-      chemicalXMobs = new HashSet<String>(Arrays.asList(cfg.get("general", "ChemicalXMobs", new String[]{"Creeper", "Zombie", "Enderman", "SnowMan", "Skeleton", "SpecialMobs.HungryZombie", "SpecialMobs.FireZombie"}, "Mobs Chemical X can take, by entity name (such as Creeper or MoCreatures.Wyvern). It kills the mob it takes and sometimes leaves a mutant in its place, so a mob without a mutant form simply dies. Mobs with a boss health bar and mutants are never taken. A whitelist or blacklist, depending on ChemicalXMobsIsWhitelist. By default only the mobs that have a mutant form.").getStringList()));
+      chemicalXMobs = new HashSet<String>(Arrays.asList(cfg.get("general", "ChemicalXMobs", new String[]{"Creeper", "Zombie", "Enderman", "SnowMan", "Skeleton", "SpecialMobs.HungryZombie", "SpecialMobs.FireZombie", "etfuturum.husk"}, "Mobs Chemical X can take, by entity name (such as Creeper or MoCreatures.Wyvern). It kills the mob it takes and sometimes leaves a mutant in its place, so a mob without a mutant form simply dies. Mobs with a boss health bar and mutants are never taken. A whitelist or blacklist, depending on ChemicalXMobsIsWhitelist. By default only the mobs that have a mutant form.").getStringList()));
       chemicalXMobsIsWhitelist = cfg.get("general", "ChemicalXMobsIsWhitelist", true, "Whether ChemicalXMobs lists the only mobs Chemical X takes (true) or the mobs it leaves alone (false).").getBoolean(true);
       cfg.save();
       mcHandler = new MCHandler();
@@ -217,6 +221,11 @@ public class MutantCreatures {
          EntityRegistry.registerModEntity(SpiderPig.class, "SpiderPig", 17, this, 80, 3, true);
       }
 
+      EntityRegistry.registerModEntity(MutantHusk.class, "MutantHusk", 20, this, 80, 3, true);
+      if (EtFuturumCompat.isLoaded()) {
+         EtFuturumCompat.registerMutants();
+      }
+
       if (SpecialMobsCompat.isLoaded()) {
          EntityRegistry.registerModEntity(HungryMutantZombie.class, "HungryMutantZombie", 18, this, 80, 3, true);
          EntityRegistry.registerModEntity(FireMutantZombie.class, "FireMutantZombie", 19, this, 80, 3, true);
@@ -229,6 +238,7 @@ public class MutantCreatures {
       MCSpawnEgg.addEgg(MutantEnderman.class, 1447446, 8860812);
       MCSpawnEgg.addEgg(MutantSnowGolem.class, 15073279, 16753434);
       MCSpawnEgg.addEgg(MutantSkeleton.class, 12698049, 6310217);
+      MCSpawnEgg.addEgg(MutantHusk.class, 7958625, 15125652);
 
       if (spawnSpiderPig) {
          MCSpawnEgg.addEgg(SpiderPig.class, 3419431, 15771042);
@@ -260,6 +270,10 @@ public class MutantCreatures {
 
       if (spawnSpiderPig) {
          EntityRegistry.addSpawn(SpiderPig.class, 2, 1, 3, EnumCreatureType.monster, suitableBiomes);
+      }
+
+      if (spawnHusk) {
+         EntityRegistry.addSpawn(MutantHusk.class, 1, 1, 1, EnumCreatureType.monster, new BiomeGenBase[]{BiomeGenBase.desert, BiomeGenBase.desertHills});
       }
 
       if (spawnHungryZombie && SpecialMobsCompat.isLoaded()) {

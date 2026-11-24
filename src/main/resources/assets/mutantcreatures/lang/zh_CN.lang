@@ -1,6 +1,7 @@
 entity.MutantCreatures.MutantCreeper.name=突变苦力怕
 entity.MutantCreatures.CreeperMinion.name=苦力怕仆从
 entity.MutantCreatures.MutantZombie.name=突变僵尸
+entity.MutantCreatures.MutantHusk.name=突变尸壳
 entity.MutantCreatures.HungryMutantZombie.name=饥饿突变僵尸
 entity.MutantCreatures.FireMutantZombie.name=火焰突变僵尸
 entity.MutantCreatures.ZombieMinion.name=僵尸

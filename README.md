@@ -4,7 +4,7 @@
 
 Mutant mini-bosses for Minecraft 1.7.10, based on [thehippomaster21's original mod](https://www.curseforge.com/minecraft/mc-mods/mutant-creatures-mod).
 
-Adds mutant creepers, zombies, skeletons, endermen, snow golems, and spider pigs, along with Chemical X, weapons, and armor. Mutant spawning and the mobs Chemical X can take can be configured.
+Adds mutant creepers, zombies, husks, skeletons, endermen, snow golems, and spider pigs, along with Chemical X, weapons, and armor. Mutant spawning and the mobs Chemical X can take can be configured.
 
 With [Special Mobs](https://www.curseforge.com/minecraft/mc-mods/special-mobs) installed, there is also a hungry mutant zombie, made from Special Mobs' hungry zombie with Chemical X. Its belly is eaten away down to the ribs and spine. It grabs you, lifts you to its face and bites, eating the food out of your inventory to heal, and it goes after food lying on the ground. Whatever it eats falls straight out through its belly. Its roar raises Special Mobs' hungry zombies.
 

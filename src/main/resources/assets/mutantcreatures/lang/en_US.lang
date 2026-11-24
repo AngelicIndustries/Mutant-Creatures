@@ -1,6 +1,7 @@
 entity.MutantCreatures.MutantCreeper.name=Mutant Creeper
 entity.MutantCreatures.CreeperMinion.name=Creeper Minion
 entity.MutantCreatures.MutantZombie.name=Mutant Zombie
+entity.MutantCreatures.MutantHusk.name=Mutant Husk
 entity.MutantCreatures.HungryMutantZombie.name=Hungry Mutant Zombie
 entity.MutantCreatures.FireMutantZombie.name=Fire Mutant Zombie
 entity.MutantCreatures.ZombieMinion.name=Zombie

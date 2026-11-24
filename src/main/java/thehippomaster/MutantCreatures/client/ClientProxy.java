@@ -38,9 +38,11 @@ import thehippomaster.MutantCreatures.SkeletonShot;
 import thehippomaster.MutantCreatures.SkullSpirit;
 import thehippomaster.MutantCreatures.SpiderPig;
 import industries.angelic.mutantcreatures.client.MutantZombieRenderers;
+import industries.angelic.mutantcreatures.client.RenderMutantHusk;
 import industries.angelic.mutantcreatures.compat.SpecialMobsCompat;
 import industries.angelic.mutantcreatures.entity.FireMutantZombie;
 import industries.angelic.mutantcreatures.entity.HungryMutantZombie;
+import industries.angelic.mutantcreatures.entity.MutantHusk;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
@@ -66,6 +68,7 @@ public class ClientProxy extends CommonProxy {
       this.addRenderer(MutantCreeper.class, new RenderMutantCreeper(new ModelMutantCreeper(), 1.5F));
       this.addRenderer(CreeperMinion.class, new RenderCreeperMinion());
       this.addRenderer(MutantZombie.class, new RenderMutantZombie(new ModelMutantZombie(), 1.5F));
+      this.addRenderer(MutantHusk.class, new RenderMutantHusk());
       this.addRenderer(MutantEnderman.class, new RenderMutantEnderman(1.2F));
       this.addRenderer(EndermanClone.class, new RenderEndermanClone());
       this.addRenderer(MutantSnowGolem.class, new RenderMutantSnowGolem(0.7F));

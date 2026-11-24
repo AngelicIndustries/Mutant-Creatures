@@ -7,6 +7,7 @@ import java.util.Set;
 import com.gtnewhorizon.gtnhmixins.ILateMixinLoader;
 import com.gtnewhorizon.gtnhmixins.LateMixin;
 
+import industries.angelic.mutantcreatures.compat.EtFuturumCompat;
 import industries.angelic.mutantcreatures.compat.SpecialMobsCompat;
 
 /** Mixins into other mods, each loaded only when its mod is. */
@@ -22,6 +23,7 @@ public class LateMixinLoader implements ILateMixinLoader {
     public List<String> getMixins(Set<String> loadedMods) {
         List<String> mixins = new ArrayList<>();
         if (loadedMods.contains(SpecialMobsCompat.MODID)) mixins.add("specialmobs.MixinEntitySpecialZombie");
+        if (loadedMods.contains(EtFuturumCompat.MODID)) mixins.add("etfuturum.MixinEntityHusk");
         return mixins;
     }
 }

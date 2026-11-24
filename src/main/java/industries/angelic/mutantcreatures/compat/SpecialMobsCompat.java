@@ -1,6 +1,5 @@
 package industries.angelic.mutantcreatures.compat;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityZombie;
@@ -30,24 +29,12 @@ public final class SpecialMobsCompat {
     }
 
     /**
-     * A Special Mobs zombie of the given variant, set up as Special Mobs sets up a spawned one and made a minion of
-     * the leader, or null if it can't be made.
+     * A Special Mobs zombie of the given variant raised as a minion of the leader, or null if it can't be made.
      *
      * @param variant the Special Mobs entity name without its prefix, e.g. {@code HungryZombie}
      */
     public static EntityZombie createMinion(String variant, MutantZombie leader, double x, double y, double z) {
-        Entity entity = EntityList.createEntityByName(MODID + "." + variant, leader.worldObj);
-        if (!(entity instanceof EntityZombie) || !(entity instanceof MutantMinion)) return null;
-
-        EntityZombie zombie = (EntityZombie) entity;
-        // Placed first: spawn setup reads the difficulty where the zombie stands.
-        zombie.setPosition(x, y, z);
-        zombie.onSpawnWithEgg(null);
-        // Raised zombies come up worn, as the mutant zombie's own minions do.
-        zombie.setHealth(zombie.getMaxHealth() * (0.6F + 0.4F * leader.getRNG()
-            .nextFloat()));
-        ((MutantMinion) zombie).mutantcreatures$follow(leader);
-        return zombie;
+        return MinionBehavior.raise(EntityList.createEntityByName(MODID + "." + variant, leader.worldObj), leader, x, y, z);
     }
 
     @SuppressWarnings("unchecked")

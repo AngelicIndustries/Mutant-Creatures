@@ -52,7 +52,9 @@ public class MutantZombieVariantModelTest {
     public static Collection<Object[]> variants() {
         return Arrays.asList(
             new Object[] { "hungry_mutant_zombie", Arrays.asList("spine") },
-            new Object[] { "fire_mutant_zombie", Arrays.asList("head_coals", "back_coals") });
+            new Object[] { "fire_mutant_zombie", Arrays.asList("head_coals", "back_coals") },
+            new Object[] { "brutish_mutant_zombie",
+                Arrays.asList("teeth", "villager_teeth", "sword") });
     }
 
     private final String name;

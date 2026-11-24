@@ -7,6 +7,7 @@ import com.geckolib.renderer.layer.builtin.AutoGlowingGeoLayer;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import industries.angelic.mutantcreatures.entity.BrutishMutantZombie;
 import industries.angelic.mutantcreatures.entity.FireMutantZombie;
 import industries.angelic.mutantcreatures.entity.HungryMutantZombie;
 
@@ -24,6 +25,18 @@ public final class MutantZombieRenderers {
             new MutantZombieGeoModel<>("hungry_mutant_zombie", "hungry_zombie"),
             "animation.hungry_mutant_zombie.",
             clips);
+    }
+
+    /** It holds the vanilla wooden sword, scaled up. */
+    public static MutantZombieGeoRenderer<BrutishMutantZombie> brutish() {
+        Map<Integer, String> clips = new HashMap<>();
+        clips.put(BrutishMutantZombie.SWEEP, "sweep");
+        MutantZombieGeoRenderer<BrutishMutantZombie> renderer = new MutantZombieGeoRenderer<>(
+            new MutantZombieGeoModel<>("brutish_mutant_zombie", "brutish_zombie"),
+            "animation.brutish_mutant_zombie.",
+            clips);
+        renderer.addRenderLayer(new BrutishSwordLayer(renderer));
+        return renderer;
     }
 
     /** Its cracks, eyes and coals glow through fire_zombie_glowmask.png. */

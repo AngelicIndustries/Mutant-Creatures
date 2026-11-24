@@ -62,11 +62,14 @@ public final class MutantZombieRig {
         float netHeadYaw, float headPitch, float partialTicks) {
         this.model.pose(zombie, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, 0.0625F, partialTicks);
         copyTo(pose);
+        // Hiding a bone leaves its children drawn, so a variant's parts on the head go with it.
         boolean villager = zombie.getVillager();
         pose.get("head")
-            .ifPresent(bone -> bone.skipRender(villager));
+            .ifPresent(bone -> bone.skipRender(villager)
+                .skipChildrenRender(villager));
         pose.get("villager_head")
-            .ifPresent(bone -> bone.skipRender(!villager));
+            .ifPresent(bone -> bone.skipRender(!villager)
+                .skipChildrenRender(!villager));
     }
 
     /** Copies the Java model's current part angles and rotation points into the pose. */

@@ -40,6 +40,7 @@ import thehippomaster.MutantCreatures.SpiderPig;
 import industries.angelic.mutantcreatures.client.MutantZombieRenderers;
 import industries.angelic.mutantcreatures.client.RenderMutantHusk;
 import industries.angelic.mutantcreatures.compat.SpecialMobsCompat;
+import industries.angelic.mutantcreatures.entity.BrutishMutantZombie;
 import industries.angelic.mutantcreatures.entity.FireMutantZombie;
 import industries.angelic.mutantcreatures.entity.HungryMutantZombie;
 import industries.angelic.mutantcreatures.entity.MutantHusk;
@@ -81,6 +82,7 @@ public class ClientProxy extends CommonProxy {
       if (SpecialMobsCompat.isLoaded()) {
          this.addRenderer(HungryMutantZombie.class, MutantZombieRenderers.hungry());
          this.addRenderer(FireMutantZombie.class, MutantZombieRenderers.fire());
+         this.addRenderer(BrutishMutantZombie.class, MutantZombieRenderers.brutish());
       }
    }
 

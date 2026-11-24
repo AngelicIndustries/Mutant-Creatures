@@ -10,6 +10,8 @@ With [Special Mobs](https://www.curseforge.com/minecraft/mc-mods/special-mobs) i
 
 There is also a fire mutant zombie, made from Special Mobs' fire zombie. It is charred black with glowing lava cracks and always aflame, and fire can't hurt it. Its hits set you alight, it breathes fire at you from a few blocks away, and its roar raises Special Mobs' fire zombies. Water and rain hurt it, and while it lies dead, water finishes it off where fire won't. It spawns in the Overworld and the Nether.
 
+The brutish mutant zombie is made from Special Mobs' brutish zombie. It has the brutish zombie's two big teeth and extra armor, and carries a huge wooden sword. Its hits take a little health past your armor, and now and then it sweeps the sword through everything in front of it, flinging it away. Its roar raises Special Mobs' brutish zombies.
+
 [![hub](images/badges/github.png)](https://github.com/AngelicIndustries/Mutant-Creatures/releases)
 [![cord](images/badges/cord.png)](https://discord.gg/xAWCqGrguG)
 ![forge](images/badges/forge.png)

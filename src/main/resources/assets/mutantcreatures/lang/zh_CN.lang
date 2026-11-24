@@ -4,6 +4,7 @@ entity.MutantCreatures.MutantZombie.name=突变僵尸
 entity.MutantCreatures.MutantHusk.name=突变尸壳
 entity.MutantCreatures.HungryMutantZombie.name=饥饿突变僵尸
 entity.MutantCreatures.FireMutantZombie.name=火焰突变僵尸
+entity.MutantCreatures.BrutishMutantZombie.name=野蛮突变僵尸
 entity.MutantCreatures.ZombieMinion.name=僵尸
 entity.MutantCreatures.MutantEnderman.name=突变末影人
 entity.MutantCreatures.EndermanClone.name=末影人克隆体

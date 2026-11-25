@@ -11,6 +11,9 @@ import industries.angelic.mutantcreatures.entity.FishingMutantZombie;
 import industries.angelic.mutantcreatures.entity.HungryMutantZombie;
 import industries.angelic.mutantcreatures.entity.PlagueMutantZombie;
 import thehippomaster.MutantCreatures.MutantCreatures;
+import thehippomaster.MutantCreatures.MutantCreeper;
+import thehippomaster.MutantCreatures.MutantEnderman;
+import thehippomaster.MutantCreatures.MutantSkeleton;
 import thehippomaster.MutantCreatures.MutantZombie;
 import thehippomaster.MutantCreatures.item.ChemicalX;
 
@@ -25,8 +28,15 @@ public final class SpecialMobsCompat {
         return Loader.isModLoaded(MODID);
     }
 
-    /** Lets Chemical X turn Special Mobs' variants into their mutant forms. */
+    /**
+     * Lets Chemical X turn Special Mobs' variants into their mutant forms, and its plain zombies, creepers, skeletons
+     * and endermen, which replace the vanilla ones, into the plain mutants.
+     */
     public static void registerMutants() {
+        addMutant("toast.specialMobs.entity.zombie.Entity_SpecialZombie", MutantZombie.class);
+        addMutant("toast.specialMobs.entity.creeper.Entity_SpecialCreeper", MutantCreeper.class);
+        addMutant("toast.specialMobs.entity.skeleton.Entity_SpecialSkeleton", MutantSkeleton.class);
+        addMutant("toast.specialMobs.entity.enderman.Entity_SpecialEnderman", MutantEnderman.class);
         addMutant("toast.specialMobs.entity.zombie.EntityHungryZombie", HungryMutantZombie.class);
         addMutant("toast.specialMobs.entity.zombie.EntityFireZombie", FireMutantZombie.class);
         addMutant("toast.specialMobs.entity.zombie.EntityBrutishZombie", BrutishMutantZombie.class);

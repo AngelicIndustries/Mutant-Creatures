@@ -60,6 +60,7 @@ public class FishingMutantZombieRenderer extends MutantZombieGeoRenderer<Fishing
             rod.modelSpaceMatrix()
                 .transformPosition(tip),
             partialTicks);
-        zombie.setDrawnRodTip(world[0], world[1], world[2]);
+        zombie.drawnRodTip()
+            .set(zombie, world[0], world[1], world[2]);
     }
 }

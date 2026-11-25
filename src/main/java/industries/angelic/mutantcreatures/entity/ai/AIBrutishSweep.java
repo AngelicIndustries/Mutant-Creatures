@@ -10,11 +10,8 @@ import net.minecraft.network.play.server.S12PacketEntityVelocity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 
-import industries.angelic.mutantcreatures.compat.MutantMinion;
 import industries.angelic.mutantcreatures.entity.BrutishMutantZombie;
 import thehippomaster.MutantCreatures.MutantCreatures;
-import thehippomaster.MutantCreatures.MutantZombie;
-import thehippomaster.MutantCreatures.Zombie;
 
 /**
  * The sword sweep: it winds up to the right and cleaves everything in a half circle in front of it, knocking it far
@@ -75,7 +72,7 @@ public class AIBrutishSweep extends EntityAIBase {
             this.zombie.boundingBox.expand(RANGE, 2.0D, RANGE));
         boolean hit = false;
         for (Object object : entities) {
-            if (!(object instanceof EntityLivingBase) || isAlly((Entity) object)) continue;
+            if (!(object instanceof EntityLivingBase) || this.zombie.isAlly((Entity) object)) continue;
 
             EntityLivingBase living = (EntityLivingBase) object;
             double dx = living.posX - this.zombie.posX;
@@ -97,11 +94,6 @@ public class AIBrutishSweep extends EntityAIBase {
             hit = true;
         }
         this.zombie.playSound(hit ? "mob.zombie.woodbreak" : "mob.zombie.wood", 1.5F, 0.6F);
-    }
-
-    private boolean isAlly(Entity entity) {
-        return entity instanceof MutantZombie || entity instanceof Zombie && ((Zombie) entity).leader == this.zombie
-            || entity instanceof MutantMinion && ((MutantMinion) entity).mutantcreatures$leader() == this.zombie;
     }
 
     @Override

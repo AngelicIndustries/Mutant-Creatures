@@ -24,6 +24,8 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import thehippomaster.MutantCreatures.ai.MCAIAttackOnCollide;
 import thehippomaster.MutantCreatures.ai.MCAIZombieAttack;
@@ -31,6 +33,7 @@ import thehippomaster.MutantCreatures.ai.MCAIZombieMelee;
 import thehippomaster.MutantCreatures.ai.MCAIZombieRoar;
 import thehippomaster.MutantCreatures.ai.MCAIZombieThrow;
 import thehippomaster.MutantCreatures.packet.PacketZombieAttack;
+import industries.angelic.mutantcreatures.compat.MutantMinion;
 
 public class MutantZombie extends EntityMob {
    public int currentAttackID;
@@ -288,6 +291,18 @@ public class MutantZombie extends EntityMob {
    }
 
    public void knockBack(Entity entity, float dmg, double d, double d1) {
+   }
+
+   /** Other mutant zombies and the zombies its roar raised, which its own attacks leave alone. */
+   public boolean isAlly(Entity entity) {
+      return entity instanceof MutantZombie || entity instanceof Zombie && ((Zombie)entity).leader == this || entity instanceof MutantMinion && ((MutantMinion)entity).mutantcreatures$leader() == this;
+   }
+
+   /** Where its head looks. Entity.getLook uses the body's yaw, which for a mob is where it walks, not where it looks. */
+   public Vec3 headLook() {
+      float yaw = this.rotationYawHead * (float)Math.PI / 180.0F;
+      float pitch = this.rotationPitch * (float)Math.PI / 180.0F;
+      return Vec3.createVectorHelper((double)(-MathHelper.sin(yaw) * MathHelper.cos(pitch)), (double)(-MathHelper.sin(pitch)), (double)(MathHelper.cos(yaw) * MathHelper.cos(pitch)));
    }
 
    /** Called when its ground slam or leap hits something, after the damage. */

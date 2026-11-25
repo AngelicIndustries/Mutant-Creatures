@@ -9,6 +9,7 @@ import industries.angelic.mutantcreatures.entity.BrutishMutantZombie;
 import industries.angelic.mutantcreatures.entity.FireMutantZombie;
 import industries.angelic.mutantcreatures.entity.FishingMutantZombie;
 import industries.angelic.mutantcreatures.entity.HungryMutantZombie;
+import industries.angelic.mutantcreatures.entity.PlagueMutantZombie;
 import thehippomaster.MutantCreatures.MutantCreatures;
 import thehippomaster.MutantCreatures.MutantZombie;
 import thehippomaster.MutantCreatures.item.ChemicalX;
@@ -30,6 +31,7 @@ public final class SpecialMobsCompat {
         addMutant("toast.specialMobs.entity.zombie.EntityFireZombie", FireMutantZombie.class);
         addMutant("toast.specialMobs.entity.zombie.EntityBrutishZombie", BrutishMutantZombie.class);
         addMutant("toast.specialMobs.entity.zombie.EntityFishingZombie", FishingMutantZombie.class);
+        addMutant("toast.specialMobs.entity.zombie.EntityPlagueZombie", PlagueMutantZombie.class);
     }
 
     /**

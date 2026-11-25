@@ -13,6 +13,7 @@ import industries.angelic.mutantcreatures.entity.BrutishMutantZombie;
 import industries.angelic.mutantcreatures.entity.FireMutantZombie;
 import industries.angelic.mutantcreatures.entity.FishingMutantZombie;
 import industries.angelic.mutantcreatures.entity.HungryMutantZombie;
+import industries.angelic.mutantcreatures.entity.PlagueMutantZombie;
 
 /** Renderers for the GeckoLib mutant zombie variants. */
 @SideOnly(Side.CLIENT)
@@ -61,14 +62,26 @@ public final class MutantZombieRenderers {
             clips);
     }
 
+    /** Its retch leaves the drawn mouth. */
+    public static MutantZombieGeoRenderer<PlagueMutantZombie> plague() {
+        Map<Integer, String> clips = new HashMap<>();
+        clips.put(PlagueMutantZombie.RETCH, "retch");
+        return new MouthTrackingRenderer<>(
+            new MutantZombieGeoModel<>("plague_mutant_zombie", "plague_zombie"),
+            "animation.plague_mutant_zombie.",
+            clips,
+            PlagueMutantZombie.RETCH);
+    }
+
     /** Its cracks, eyes and coals glow through fire_zombie_glowmask.png. */
     public static MutantZombieGeoRenderer<FireMutantZombie> fire() {
         Map<Integer, String> clips = new HashMap<>();
         clips.put(FireMutantZombie.BREATH, "breath");
-        FireMutantZombieRenderer renderer = new FireMutantZombieRenderer(
+        MutantZombieGeoRenderer<FireMutantZombie> renderer = new MouthTrackingRenderer<>(
             new MutantZombieGeoModel<>("fire_mutant_zombie", "fire_zombie"),
             "animation.fire_mutant_zombie.",
-            clips);
+            clips,
+            FireMutantZombie.BREATH);
         renderer.addRenderLayer(new AutoGlowingGeoLayer<>(renderer));
         return renderer;
     }

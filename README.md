@@ -14,6 +14,8 @@ The brutish mutant zombie is made from Special Mobs' brutish zombie. It has the 
 
 The fishing mutant zombie is made from Special Mobs' fishing zombie. It looks like the mutant zombie but carries a huge fishing rod. Whenever you're a few blocks off it casts its hook at you, and if the hook catches you it yanks you over to land right in front of it and slams the ground. Its roar raises Special Mobs' fishing zombies.
 
+The plague mutant zombie is made from Special Mobs' plague zombie. Its skin is sickly and covered in sores, and it's faster than the mutant zombie. Its hits make you sick with random effects that stack, such as slowness, nausea, blindness and poison. From a few blocks away it retches onto the ground at your feet, leaving a plague cloud that sickens anything standing in it. Its roar raises Special Mobs' plague zombies.
+
 [![hub](images/badges/github.png)](https://github.com/AngelicIndustries/Mutant-Creatures/releases)
 [![cord](images/badges/cord.png)](https://discord.gg/xAWCqGrguG)
 ![forge](images/badges/forge.png)

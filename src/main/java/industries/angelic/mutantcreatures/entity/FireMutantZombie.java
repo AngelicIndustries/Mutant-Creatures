@@ -26,7 +26,7 @@ import thehippomaster.MutantCreatures.MutantZombie;
  * it breathes fire at targets a few blocks away, and its roar raises Special Mobs' fire zombies. Water hurts it,
  * and while it lies dead water is what finishes it; fire does not.
  */
-public class FireMutantZombie extends MutantZombie implements GeoEntity {
+public class FireMutantZombie extends MutantZombie implements GeoEntity, MouthAttacker {
 
     public static final int BREATH = 4;
     /** Ticks of the breath attack during which it breathes fire: from when the breath clip has the face level. */
@@ -37,9 +37,7 @@ public class FireMutantZombie extends MutantZombie implements GeoEntity {
     private static final double MOUTH_UP = 2.35D;
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
-    /** The mouth in the world as last drawn; set by the renderer. */
-    private double[] drawnMouth;
-    private int drawnMouthTick;
+    private final DrawnPoint drawnMouth = new DrawnPoint();
 
     public FireMutantZombie(World world) {
         super(world);
@@ -126,9 +124,8 @@ public class FireMutantZombie extends MutantZombie implements GeoEntity {
      * head, so the face turns a quarter less than the look.
      */
     private void spawnBreath() {
-        double[] from = this.drawnMouth != null && this.ticksExisted - this.drawnMouthTick <= 2 ? this.drawnMouth
-            : this.mouthPosition();
-        Vec3 look = this.breathDirection();
+        double[] from = this.drawnMouth.get(this, this.mouthPosition());
+        Vec3 look = this.headLook();
         double[] along = { look.xCoord, look.yCoord, look.zCoord };
         for (int i = 0; i < 8; i++) {
             double speed = 0.45D + this.rand.nextDouble() * 0.35D;
@@ -143,10 +140,9 @@ public class FireMutantZombie extends MutantZombie implements GeoEntity {
         }
     }
 
-    /** Called by the renderer with where it drew the mouth. */
-    public void setDrawnMouth(double x, double y, double z) {
-        this.drawnMouth = new double[] { x, y, z };
-        this.drawnMouthTick = this.ticksExisted;
+    @Override
+    public DrawnPoint drawnMouth() {
+        return this.drawnMouth;
     }
 
     /** Where the mouth is while it breathes, turned the way its head looks. */
@@ -154,19 +150,6 @@ public class FireMutantZombie extends MutantZombie implements GeoEntity {
         float yaw = this.rotationYawHead * (float) Math.PI / 180.0F;
         return new double[] { this.posX - MathHelper.sin(yaw) * MOUTH_FORWARD, this.posY + MOUTH_UP,
             this.posZ + MathHelper.cos(yaw) * MOUTH_FORWARD };
-    }
-
-    /**
-     * Where its head looks. Entity.getLook uses the body's yaw, which for a mob is where it walks, not where it
-     * looks.
-     */
-    public Vec3 breathDirection() {
-        float yaw = this.rotationYawHead * (float) Math.PI / 180.0F;
-        float pitch = this.rotationPitch * (float) Math.PI / 180.0F;
-        return Vec3.createVectorHelper(
-            -MathHelper.sin(yaw) * MathHelper.cos(pitch),
-            -MathHelper.sin(pitch),
-            MathHelper.cos(yaw) * MathHelper.cos(pitch));
     }
 
     /** Snowballs always hurt it, as they do Special Mobs' fire zombie. */

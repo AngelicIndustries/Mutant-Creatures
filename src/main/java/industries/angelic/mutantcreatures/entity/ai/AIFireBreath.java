@@ -8,10 +8,7 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Vec3;
 
-import industries.angelic.mutantcreatures.compat.MutantMinion;
 import industries.angelic.mutantcreatures.entity.FireMutantZombie;
-import thehippomaster.MutantCreatures.MutantZombie;
-import thehippomaster.MutantCreatures.Zombie;
 
 /**
  * Breathes fire at a target three to nine blocks away: it rears back, then sweeps a cone of flame that sets
@@ -84,12 +81,12 @@ public class AIFireBreath extends EntityAIBase {
     /** Sets everything in the cone alight, hurting it every other time. */
     private void burn(boolean hurt) {
         double[] mouth = this.zombie.mouthPosition();
-        Vec3 look = this.zombie.breathDirection();
+        Vec3 look = this.zombie.headLook();
         List<?> entities = this.zombie.worldObj.getEntitiesWithinAABBExcludingEntity(
             this.zombie,
             this.zombie.boundingBox.expand(RANGE + 2, RANGE, RANGE + 2));
         for (Object object : entities) {
-            if (!(object instanceof EntityLivingBase) || isAlly((Entity) object)) continue;
+            if (!(object instanceof EntityLivingBase) || this.zombie.isAlly((Entity) object)) continue;
 
             EntityLivingBase living = (EntityLivingBase) object;
             double dx = living.posX - mouth[0];
@@ -107,11 +104,6 @@ public class AIFireBreath extends EntityAIBase {
                     3.0F);
             }
         }
-    }
-
-    private boolean isAlly(Entity entity) {
-        return entity instanceof MutantZombie || entity instanceof Zombie && ((Zombie) entity).leader == this.zombie
-            || entity instanceof MutantMinion && ((MutantMinion) entity).mutantcreatures$leader() == this.zombie;
     }
 
     @Override

@@ -10,10 +10,6 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-import industries.angelic.mutantcreatures.compat.MutantMinion;
-import thehippomaster.MutantCreatures.MutantZombie;
-import thehippomaster.MutantCreatures.Zombie;
-
 /**
  * The fishing mutant zombie's hook. It flies in an arc and latches onto the first mob or player it hurts, following
  * it until the angler reels it in. On a block or in water it stops where it is. It is never saved.
@@ -163,7 +159,7 @@ public class MutantFishHook extends Entity {
                 .expand(1.0D, 1.0D, 1.0D));
         for (Object object : entities) {
             Entity entity = (Entity) object;
-            if (!entity.canBeCollidedWith() || entity == this.glanced || this.isAlly(entity)) continue;
+            if (!entity.canBeCollidedWith() || entity == this.glanced || this.angler.isAlly(entity)) continue;
             AxisAlignedBB box = entity.boundingBox.expand(0.3D, 0.3D, 0.3D);
             MovingObjectPosition intercept = box.calculateIntercept(from, to);
             if (intercept == null) continue;
@@ -191,12 +187,6 @@ public class MutantFishHook extends Entity {
             return true;
         }
         return false;
-    }
-
-    private boolean isAlly(Entity entity) {
-        return entity == this.angler || entity instanceof MutantZombie
-            || entity instanceof Zombie && ((Zombie) entity).leader == this.angler
-            || entity instanceof MutantMinion && ((MutantMinion) entity).mutantcreatures$leader() == this.angler;
     }
 
     @Override

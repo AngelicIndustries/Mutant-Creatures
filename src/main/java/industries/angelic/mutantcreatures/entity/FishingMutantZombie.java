@@ -44,9 +44,7 @@ public class FishingMutantZombie extends MutantZombie implements GeoEntity {
     private MutantFishHook hook;
     /** Ticks until it can cast again. */
     public int castCooldown;
-    /** The rod tip in the world as last drawn; set by the renderer. */
-    private double[] drawnRodTip;
-    private int drawnRodTipTick;
+    private final DrawnPoint drawnRodTip = new DrawnPoint();
 
     public FishingMutantZombie(World world) {
         super(world);
@@ -126,16 +124,14 @@ public class FishingMutantZombie extends MutantZombie implements GeoEntity {
         if (this.hook != null) this.hook.setDead();
     }
 
-    /** Called by the renderer with where it drew the rod tip. */
-    public void setDrawnRodTip(double x, double y, double z) {
-        this.drawnRodTip = new double[] { x, y, z };
-        this.drawnRodTipTick = this.ticksExisted;
+    /** The rod tip as the renderer last drew it. */
+    public DrawnPoint drawnRodTip() {
+        return this.drawnRodTip;
     }
 
     /** Where the line leaves the rod: the tip as last drawn, or about where it is while the line is out. */
     public double[] rodTip(float partialTicks) {
-        if (this.drawnRodTip != null && this.ticksExisted - this.drawnRodTipTick <= 2) return this.drawnRodTip;
-        return this.fromFeet(HOLD_TIP, partialTicks);
+        return this.drawnRodTip.get(this, this.fromFeet(HOLD_TIP, partialTicks));
     }
 
     /** Where the whip throws the hook from. */

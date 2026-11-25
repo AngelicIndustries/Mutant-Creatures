@@ -1,61 +1,94 @@
 package industries.angelic.mutantcreatures.client;
 
+import java.nio.FloatBuffer;
+import java.util.function.Function;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.init.Items;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
+import org.joml.Matrix4f;
+import org.joml.Vector3f;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 
+import com.geckolib.animatable.GeoAnimatable;
 import com.geckolib.renderer.base.GeoRenderer;
 import com.geckolib.renderer.base.RenderPassInfo;
 import com.geckolib.renderer.layer.GeoRenderLayer;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import industries.angelic.mutantcreatures.entity.BrutishMutantZombie;
 
 /**
- * The vanilla wooden sword, scaled up, in the brutish mutant zombie's right fist. It glints, as the brutish zombie's
- * sword does with its Pain enchantment. The sword bone sits in the fist, and the sword runs along its -z.
+ * A vanilla item, scaled up, held at a bone: drawn from its icon as vanilla draws a held item, with the enchantment
+ * glint if asked for. The icon must run diagonally from the held end at its bottom left up to its top right, as
+ * swords, tools and the fishing rod do. It is laid along the bone's -z with its flat to the sides and its grip on the
+ * bone.
  */
 @SideOnly(Side.CLIENT)
-public class BrutishSwordLayer extends GeoRenderLayer<BrutishMutantZombie> {
+public class HeldItemLayer<T extends GeoAnimatable> extends GeoRenderLayer<T> {
 
     private static final ResourceLocation GLINT = new ResourceLocation("textures/misc/enchanted_item_glint.png");
-    /** Width of the sword's icon in blocks, before the renderer's scale. */
-    private static final float SIZE = 1.5F;
-    /** The middle of the grip, in texels from the icon's bottom left corner, right and up alike. */
-    private static final float GRIP = 3.25F;
     /** Thickness of the item as vanilla draws it: one texel. */
     private static final float THICKNESS = 1 / 16F;
+    private static final FloatBuffer MATRIX = BufferUtils.createFloatBuffer(16);
 
-    public BrutishSwordLayer(GeoRenderer<BrutishMutantZombie> renderer) {
+    private final String bone;
+    private final Function<T, IIcon> icon;
+    private final Matrix4f iconToBone;
+    private final boolean glint;
+
+    /**
+     * @param size  width of the icon in blocks, before the renderer's scale
+     * @param gripU the middle of the grip on the icon, in texels from its left
+     * @param gripV the middle of the grip on the icon, in texels from its top
+     */
+    public HeldItemLayer(GeoRenderer<T> renderer, String bone, Function<T, IIcon> icon, float size, float gripU,
+        float gripV, boolean glint) {
         super(renderer);
+        this.bone = bone;
+        this.icon = icon;
+        this.iconToBone = iconToBone(size, gripU, gripV);
+        this.glint = glint;
+    }
+
+    /**
+     * From the icon's space, where (0, 0) is its bottom left corner and its width is one, to the bone's. The blade
+     * runs diagonally up the icon from the grip; it is turned to lie along -z with its flat to the sides.
+     */
+    public static Matrix4f iconToBone(float size, float gripU, float gripV) {
+        return new Matrix4f().scale(size)
+            .rotateY((float) Math.toRadians(90))
+            .rotateZ((float) Math.toRadians(-45))
+            .translate(-gripU / 16, gripV / 16 - 1, THICKNESS / 2);
+    }
+
+    /** A texel on the icon, in texels from its top left as in the texture, in the bone's space. */
+    public static Vector3f texelToBone(Matrix4f iconToBone, float u, float v) {
+        return iconToBone.transformPosition(new Vector3f(u / 16, 1 - v / 16, -THICKNESS / 2));
     }
 
     @Override
-    public void render(RenderPassInfo<BrutishMutantZombie> info) {
-        if (info.runAtBone("sword", () -> renderSword(info))) {
+    public void render(RenderPassInfo<T> info) {
+        IIcon icon = this.icon.apply(info.animatable());
+        if (icon == null) return;
+        if (info.runAtBone(this.bone, () -> renderItem(info, icon))) {
             this.renderer.bindTexture(info.animatable());
         }
     }
 
-    private static void renderSword(RenderPassInfo<BrutishMutantZombie> info) {
-        IIcon icon = Items.wooden_sword.getIconFromDamage(0);
+    private void renderItem(RenderPassInfo<T> info, IIcon icon) {
         Minecraft.getMinecraft()
             .getTextureManager()
             .bindTexture(TextureMap.locationItemsTexture);
-        GL11.glScalef(SIZE, SIZE, SIZE);
-        // The blade runs diagonally up the icon from the grip at the bottom left. Lay it along -z with the flat of the
-        // blade to the sides, and the grip's middle on the bone.
-        GL11.glRotatef(90, 0, 1, 0);
-        GL11.glRotatef(-45, 0, 0, 1);
-        GL11.glTranslatef(-GRIP / 16, -GRIP / 16, THICKNESS / 2);
+        MATRIX.clear();
+        this.iconToBone.get(MATRIX);
+        GL11.glMultMatrix(MATRIX);
         GL11.glColor4f(info.red(), info.green(), info.blue(), info.alpha());
         // With the UVs in this order the icon's bottom left corner is at (0, 0), and its front face is not mirrored.
         Tessellator tessellator = Tessellator.instance;
@@ -68,10 +101,10 @@ public class BrutishSwordLayer extends GeoRenderLayer<BrutishMutantZombie> {
             icon.getIconWidth(),
             icon.getIconHeight(),
             THICKNESS);
-        renderGlint(tessellator);
+        if (this.glint) renderGlint(tessellator);
     }
 
-    /** The enchantment glint, drawn over the sword as vanilla draws it over a held item. */
+    /** The enchantment glint, drawn over the item as vanilla draws it over a held item. */
     private static void renderGlint(Tessellator tessellator) {
         boolean blend = GL11.glIsEnabled(GL11.GL_BLEND);
         boolean lighting = GL11.glIsEnabled(GL11.GL_LIGHTING);

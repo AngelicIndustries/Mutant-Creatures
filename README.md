@@ -12,6 +12,8 @@ There is also a fire mutant zombie, made from Special Mobs' fire zombie. It is c
 
 The brutish mutant zombie is made from Special Mobs' brutish zombie. It has the brutish zombie's two big teeth and extra armor, and carries a huge wooden sword. Its hits take a little health past your armor, and now and then it sweeps the sword through everything in front of it, flinging it away. Its roar raises Special Mobs' brutish zombies.
 
+The fishing mutant zombie is made from Special Mobs' fishing zombie. It looks like the mutant zombie but carries a huge fishing rod. Whenever you're a few blocks off it casts its hook at you, and if the hook catches you it yanks you over to land right in front of it and slams the ground. Its roar raises Special Mobs' fishing zombies.
+
 [![hub](images/badges/github.png)](https://github.com/AngelicIndustries/Mutant-Creatures/releases)
 [![cord](images/badges/cord.png)](https://discord.gg/xAWCqGrguG)
 ![forge](images/badges/forge.png)

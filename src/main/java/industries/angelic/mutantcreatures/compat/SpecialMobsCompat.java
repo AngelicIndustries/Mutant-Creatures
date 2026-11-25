@@ -7,6 +7,7 @@ import net.minecraft.entity.monster.EntityZombie;
 import cpw.mods.fml.common.Loader;
 import industries.angelic.mutantcreatures.entity.BrutishMutantZombie;
 import industries.angelic.mutantcreatures.entity.FireMutantZombie;
+import industries.angelic.mutantcreatures.entity.FishingMutantZombie;
 import industries.angelic.mutantcreatures.entity.HungryMutantZombie;
 import thehippomaster.MutantCreatures.MutantCreatures;
 import thehippomaster.MutantCreatures.MutantZombie;
@@ -28,6 +29,7 @@ public final class SpecialMobsCompat {
         addMutant("toast.specialMobs.entity.zombie.EntityHungryZombie", HungryMutantZombie.class);
         addMutant("toast.specialMobs.entity.zombie.EntityFireZombie", FireMutantZombie.class);
         addMutant("toast.specialMobs.entity.zombie.EntityBrutishZombie", BrutishMutantZombie.class);
+        addMutant("toast.specialMobs.entity.zombie.EntityFishingZombie", FishingMutantZombie.class);
     }
 
     /**

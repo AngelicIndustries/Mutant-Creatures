@@ -5,6 +5,7 @@ entity.MutantCreatures.MutantHusk.name=Mutant Husk
 entity.MutantCreatures.HungryMutantZombie.name=Hungry Mutant Zombie
 entity.MutantCreatures.FireMutantZombie.name=Fire Mutant Zombie
 entity.MutantCreatures.BrutishMutantZombie.name=Brutish Mutant Zombie
+entity.MutantCreatures.FishingMutantZombie.name=Fishing Mutant Zombie
 entity.MutantCreatures.ZombieMinion.name=Zombie
 entity.MutantCreatures.MutantEnderman.name=Mutant Enderman
 entity.MutantCreatures.EndermanClone.name=Enderman Clone

@@ -1,0 +1,399 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.fishing_mutant_zombie.cast": {
+			"animation_length": 0.6,
+			"bones": {
+				"waist": {
+					"rotation": {
+						"0.0": {
+							"post": [
+								0,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.35": {
+							"post": [
+								0,
+								15,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.5": {
+							"post": [
+								0,
+								-8,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.6": {
+							"post": [
+								0,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						}
+					}
+				},
+				"chest": {
+					"rotation": {
+						"0.0": {
+							"post": [
+								0,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.35": {
+							"post": [
+								-15,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.5": {
+							"post": [
+								10,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.6": {
+							"post": [
+								6,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						}
+					}
+				},
+				"right_arm": {
+					"rotation": {
+						"0.0": {
+							"post": [
+								0,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.35": {
+							"post": [
+								-200,
+								0,
+								15
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.5": {
+							"post": [
+								-80,
+								0,
+								10
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.6": {
+							"post": [
+								-55,
+								0,
+								10
+							],
+							"lerp_mode": "catmullrom"
+						}
+					}
+				},
+				"right_forearm": {
+					"rotation": {
+						"0.0": {
+							"post": [
+								0,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.35": {
+							"post": [
+								40,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.5": {
+							"post": [
+								10,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.6": {
+							"post": [
+								15,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						}
+					}
+				},
+				"rod": {
+					"rotation": {
+						"0.0": {
+							"post": [
+								0,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.35": {
+							"post": [
+								40,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.5": {
+							"post": [
+								48,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.6": {
+							"post": [
+								33,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						}
+					}
+				},
+				"left_arm": {
+					"rotation": {
+						"0.0": {
+							"post": [
+								0,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.35": {
+							"post": [
+								-30,
+								0,
+								-20
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.6": {
+							"post": [
+								-20,
+								0,
+								-10
+							],
+							"lerp_mode": "catmullrom"
+						}
+					}
+				}
+			}
+		},
+		"animation.fishing_mutant_zombie.reel": {
+			"animation_length": 0.7,
+			"bones": {
+				"chest": {
+					"rotation": {
+						"0.0": {
+							"post": [
+								6,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.25": {
+							"post": [
+								-15,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.7": {
+							"post": [
+								0,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						}
+					}
+				},
+				"right_arm": {
+					"rotation": {
+						"0.0": {
+							"post": [
+								-55,
+								0,
+								10
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.25": {
+							"post": [
+								-170,
+								0,
+								5
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.7": {
+							"post": [
+								0,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						}
+					}
+				},
+				"right_forearm": {
+					"rotation": {
+						"0.0": {
+							"post": [
+								15,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.25": {
+							"post": [
+								40,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.7": {
+							"post": [
+								0,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						}
+					}
+				},
+				"rod": {
+					"rotation": {
+						"0.0": {
+							"post": [
+								33,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.25": {
+							"post": [
+								43,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.7": {
+							"post": [
+								0,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						}
+					}
+				},
+				"left_arm": {
+					"rotation": {
+						"0.0": {
+							"post": [
+								-20,
+								0,
+								-10
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.15": {
+							"post": [
+								-90,
+								0,
+								-25
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.25": {
+							"post": [
+								-140,
+								0,
+								-20
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.7": {
+							"post": [
+								0,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						}
+					}
+				},
+				"left_forearm": {
+					"rotation": {
+						"0.0": {
+							"post": [
+								0,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.25": {
+							"post": [
+								30,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						},
+						"0.7": {
+							"post": [
+								0,
+								0,
+								0
+							],
+							"lerp_mode": "catmullrom"
+						}
+					}
+				}
+			}
+		}
+	}
+}

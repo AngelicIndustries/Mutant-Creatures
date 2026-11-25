@@ -54,7 +54,8 @@ public class MutantZombieVariantModelTest {
             new Object[] { "hungry_mutant_zombie", Arrays.asList("spine") },
             new Object[] { "fire_mutant_zombie", Arrays.asList("head_coals", "back_coals") },
             new Object[] { "brutish_mutant_zombie",
-                Arrays.asList("teeth", "villager_teeth", "sword") });
+                Arrays.asList("teeth", "villager_teeth", "sword") },
+            new Object[] { "fishing_mutant_zombie", Arrays.asList("rod") });
     }
 
     private final String name;

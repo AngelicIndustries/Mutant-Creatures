@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
 
+import org.joml.Vector3f;
 import org.lwjgl.opengl.GL11;
 
 import com.geckolib.animatable.GeoAnimatable;
@@ -57,6 +58,24 @@ public class MutantZombieGeoRenderer<T extends MutantZombie & GeoAnimatable> ext
 
         double time = Math.min((zombie.animTick + partialTicks) / 20.0, animation.length());
         pose.apply(AnimationProcessor.evaluate(animation, time, MolangContext.EMPTY), true);
+    }
+
+    /**
+     * A point in model space to the world, as the renderer draws it: scaled, raised by its ground offset and turned by
+     * 180 degrees minus the body's yaw.
+     */
+    protected double[] modelToWorld(T zombie, Vector3f point, float partialTicks) {
+        float bodyYaw = zombie.prevRenderYawOffset + (zombie.renderYawOffset - zombie.prevRenderYawOffset) * partialTicks;
+        double angle = Math.toRadians(180.0F - bodyYaw);
+        double cos = Math.cos(angle);
+        double sin = Math.sin(angle);
+        double mx = point.x * this.scaleWidth;
+        double my = (point.y + 0.01F) * this.scaleHeight;
+        double mz = point.z * this.scaleWidth;
+        double x = zombie.lastTickPosX + (zombie.posX - zombie.lastTickPosX) * partialTicks;
+        double y = zombie.lastTickPosY + (zombie.posY - zombie.lastTickPosY) * partialTicks;
+        double z = zombie.lastTickPosZ + (zombie.posZ - zombie.lastTickPosZ) * partialTicks;
+        return new double[] { x + mx * cos + mz * sin, y + my, z - mx * sin + mz * cos };
     }
 
     /**

@@ -35,21 +35,11 @@ public class FireMutantZombieRenderer extends MutantZombieGeoRenderer<FireMutant
             .orElse(null);
         if (head == null) return;
 
-        Vector3f mouth = head.modelSpaceMatrix()
-            .transformPosition(new Vector3f(MOUTH));
-
-        // Model space to the world as the renderer draws it: scaled, raised by its ground offset and turned by
-        // 180 degrees minus the body's yaw.
-        float bodyYaw = zombie.prevRenderYawOffset + (zombie.renderYawOffset - zombie.prevRenderYawOffset) * partialTicks;
-        double angle = Math.toRadians(180.0F - bodyYaw);
-        double cos = Math.cos(angle);
-        double sin = Math.sin(angle);
-        double mx = mouth.x * this.scaleWidth;
-        double my = (mouth.y + 0.01F) * this.scaleHeight;
-        double mz = mouth.z * this.scaleWidth;
-        double x = zombie.lastTickPosX + (zombie.posX - zombie.lastTickPosX) * partialTicks;
-        double y = zombie.lastTickPosY + (zombie.posY - zombie.lastTickPosY) * partialTicks;
-        double z = zombie.lastTickPosZ + (zombie.posZ - zombie.lastTickPosZ) * partialTicks;
-        zombie.setDrawnMouth(x + mx * cos + mz * sin, y + my, z - mx * sin + mz * cos);
+        double[] mouth = modelToWorld(
+            zombie,
+            head.modelSpaceMatrix()
+                .transformPosition(new Vector3f(MOUTH)),
+            partialTicks);
+        zombie.setDrawnMouth(mouth[0], mouth[1], mouth[2]);
     }
 }

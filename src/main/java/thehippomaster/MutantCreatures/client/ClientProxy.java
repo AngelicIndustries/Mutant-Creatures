@@ -38,9 +38,12 @@ import thehippomaster.MutantCreatures.SkeletonShot;
 import thehippomaster.MutantCreatures.SkullSpirit;
 import thehippomaster.MutantCreatures.SpiderPig;
 import industries.angelic.mutantcreatures.client.MutantZombieRenderers;
+import industries.angelic.mutantcreatures.client.RenderMutantFishHook;
 import industries.angelic.mutantcreatures.client.RenderMutantHusk;
 import industries.angelic.mutantcreatures.compat.SpecialMobsCompat;
 import industries.angelic.mutantcreatures.entity.BrutishMutantZombie;
+import industries.angelic.mutantcreatures.entity.FishingMutantZombie;
+import industries.angelic.mutantcreatures.entity.MutantFishHook;
 import industries.angelic.mutantcreatures.entity.FireMutantZombie;
 import industries.angelic.mutantcreatures.entity.HungryMutantZombie;
 import industries.angelic.mutantcreatures.entity.MutantHusk;
@@ -83,6 +86,8 @@ public class ClientProxy extends CommonProxy {
          this.addRenderer(HungryMutantZombie.class, MutantZombieRenderers.hungry());
          this.addRenderer(FireMutantZombie.class, MutantZombieRenderers.fire());
          this.addRenderer(BrutishMutantZombie.class, MutantZombieRenderers.brutish());
+         this.addRenderer(FishingMutantZombie.class, MutantZombieRenderers.fishing());
+         this.addRenderer(MutantFishHook.class, new RenderMutantFishHook());
       }
    }
 

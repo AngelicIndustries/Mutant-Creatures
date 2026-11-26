@@ -112,7 +112,12 @@ public class ClientProxy extends CommonProxy {
       return mcTimer.renderPartialTicks;
    }
 
+   /** Particles belong to the client's world. In singleplayer the integrated server's entities call this too. */
    public void spawnChemicalXParticles(ChemicalXEntity entity) {
+      if (!entity.worldObj.isRemote) {
+         return;
+      }
+
       EffectRenderer renderer = FMLClientHandler.instance().getClient().effectRenderer;
 
       for(int i = MutantCreatures.rand.nextInt(5); i < 50; ++i) {
@@ -125,6 +130,10 @@ public class ClientProxy extends CommonProxy {
    }
 
    public void spawnSkullParticles(SkullSpirit spirit, boolean flag) {
+      if (!spirit.worldObj.isRemote) {
+         return;
+      }
+
       EffectRenderer renderer = FMLClientHandler.instance().getClient().effectRenderer;
       if (flag) {
          for(int i = 0; i < 16; ++i) {

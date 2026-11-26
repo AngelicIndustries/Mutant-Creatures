@@ -28,10 +28,16 @@ public class SkullSpirit extends Entity {
       this.target = living;
       this.noClip = true;
       this.setSize(0.1F, 0.1F);
+      // The client finds its target from this, to fly to it and show the skulls itself.
+      if (living != null) {
+         this.dataWatcher.updateObject(17, living.getEntityId());
+      }
+
    }
 
    protected void entityInit() {
       this.dataWatcher.addObject(16, (byte)0);
+      this.dataWatcher.addObject(17, -1);
    }
 
    protected void setGrabbed(boolean flag) {
@@ -43,6 +49,15 @@ public class SkullSpirit extends Entity {
    }
 
    public void onUpdate() {
+      if (this.target == null && this.worldObj.isRemote) {
+         Entity entity = this.worldObj.getEntityByID(this.dataWatcher.getWatchableObjectInt(17));
+         if (!(entity instanceof EntityLivingBase)) {
+            return;
+         }
+
+         this.target = (EntityLivingBase)entity;
+      }
+
       if (this.target != null && this.target.isEntityAlive() && !(this.target instanceof EntityPlayer)) {
          if (this.getGrabbed()) {
             if (!this.worldObj.isRemote) {

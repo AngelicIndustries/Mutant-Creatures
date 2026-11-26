@@ -13,6 +13,7 @@ import net.minecraft.entity.ai.EntityAICreeperSwell;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.util.StatCollector;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
@@ -72,7 +73,7 @@ public class CreeperMinion extends EntityCreeper {
       this.dataWatcher.addObject(22, (byte)0);
       this.dataWatcher.addObject(23, 8);
       this.dataWatcher.addObject(24, 20);
-      this.dataWatcher.addObject(25, "Creeper Minion");
+      this.dataWatcher.addObject(25, "");
       this.dataWatcher.addObject(26, 4);
    }
 
@@ -149,8 +150,15 @@ public class CreeperMinion extends EntityCreeper {
       return (float)this.dataWatcher.getWatchableObjectInt(24) / 10.0F;
    }
 
+   /** The name its owner gave it, empty if none. */
    public String getName() {
       return this.dataWatcher.getWatchableObjectString(25);
+   }
+
+   /** The name shown on it: the one its owner gave it, or "Creeper Minion" in the game's language. */
+   public String getShownName() {
+      String name = this.getName();
+      return name.isEmpty() ? StatCollector.translateToLocal("entity.MutantCreatures.CreeperMinion.name") : name;
    }
 
    public int getCurrentHealth() {
@@ -366,7 +374,9 @@ public class CreeperMinion extends EntityCreeper {
       this.setShowName(tagcompound.getBoolean("showName"));
       this.setDestroyBlocks(tagcompound.getBoolean("destroyBlocks"));
       this.setOwner(tagcompound.getString("owner"));
-      this.setName(tagcompound.getString("name"));
+      // Minions saved before the default name came from the lang file stored it in English.
+      String name = tagcompound.getString("name");
+      this.setName("Creeper Minion".equals(name) ? "" : name);
    }
 
    protected String getLivingSound() {

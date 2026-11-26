@@ -75,7 +75,7 @@ public class RenderCreeperMinion extends RenderCreeper {
    protected void passSpecialRender(EntityLivingBase living, double x, double y, double z) {
       CreeperMinion minion = (CreeperMinion)living;
       if (minion.getTamed() && minion.getShowName()) {
-         this.func_147906_a(minion, minion.getName(), x, y, z, 40);
+         this.func_147906_a(minion, minion.getShownName(), x, y, z, 40);
       }
 
    }

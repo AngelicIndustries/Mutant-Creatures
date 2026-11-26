@@ -4,6 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ChatAllowedCharacters;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
@@ -30,11 +31,11 @@ public class GuiCreeperMinion extends GuiScreen {
    private static final ResourceLocation texture = new ResourceLocation("MutantCreatures:textures/guiminion.png");
 
    private String getDestroyBlocks() {
-      return this.destroyBlocks ? "Destroy Blocks: ON" : "Destroy Blocks: OFF";
+      return I18n.format("gui.mutantcreatures.creeperMinion.destroyBlocks", I18n.format(this.destroyBlocks ? "options.on" : "options.off"));
    }
 
    private String getShowName() {
-      return this.showName ? "Name: ON" : "Name: OFF";
+      return I18n.format("gui.mutantcreatures.creeperMinion.showName", I18n.format(this.showName ? "options.on" : "options.off"));
    }
 
    public void initGui() {
@@ -50,7 +51,7 @@ public class GuiCreeperMinion extends GuiScreen {
       this.nameButton = new GuiButton(0, this.guiX + 10, this.guiY + 10, this.xSize - 20, 20, this.name);
       this.destroyBlocksButton = new GuiButton(1, this.guiX + 8, this.guiY + this.ySize - 54, buttonWidth * 2 + 4, 20, this.getDestroyBlocks());
       this.showNameButton = new GuiButton(2, this.guiX + 8, this.guiY + this.ySize - 30, buttonWidth, 20, this.getShowName());
-      this.doneButton = new GuiButton(3, this.guiX + this.xSize / 2 + 2, this.guiY + this.ySize - 30, buttonWidth, 20, "Done");
+      this.doneButton = new GuiButton(3, this.guiX + this.xSize / 2 + 2, this.guiY + this.ySize - 30, buttonWidth, 20, I18n.format("gui.done"));
       Keyboard.enableRepeatEvents(true);
       this.buttonList.clear();
       this.buttonList.add(this.nameButton);
@@ -65,7 +66,7 @@ public class GuiCreeperMinion extends GuiScreen {
    }
 
    public void updateScreen() {
-      String s = this.name;
+      String s = this.name.isEmpty() && !this.editingName ? this.creeperMinion.getShownName() : this.name;
       if (this.editingName) {
          StringBuilder sb = new StringBuilder(s);
          sb.insert(0, ">").append("<");
@@ -130,13 +131,13 @@ public class GuiCreeperMinion extends GuiScreen {
       this.drawTexturedModalRect(this.guiX, this.guiY, 0, 0, this.xSize, this.ySize);
       int health = (int)(this.creeperMinion.getHealth() * 150.0F / this.creeperMinion.getMaxHealth());
       this.drawTexturedModalRect(this.guiX + 13, this.guiY + 36, 0, 166, health, 6);
-      this.fontRendererObj.drawString("Health", this.guiX + 13, this.guiY + 54, 4210752);
-      this.fontRendererObj.drawString("Explosion", this.guiX + 13, this.guiY + 74, 4210752);
-      this.fontRendererObj.drawString("Blast Radius", this.guiX + 13, this.guiY + 94, 4210752);
+      this.fontRendererObj.drawString(I18n.format("gui.mutantcreatures.creeperMinion.health"), this.guiX + 13, this.guiY + 54, 4210752);
+      this.fontRendererObj.drawString(I18n.format("gui.mutantcreatures.creeperMinion.explosion"), this.guiX + 13, this.guiY + 74, 4210752);
+      this.fontRendererObj.drawString(I18n.format("gui.mutantcreatures.creeperMinion.blastRadius"), this.guiX + 13, this.guiY + 94, 4210752);
       StringBuilder sb = new StringBuilder();
       sb.append(this.creeperMinion.getHealth() / 2.0F).append(" / ").append(this.creeperMinion.getMaxHealth() / 2.0F);
       this.drawCenteredString(this.fontRendererObj, sb.toString(), this.guiX + this.xSize / 2 + 38, this.guiY + 54, 16777215);
-      this.drawCenteredString(this.fontRendererObj, this.creeperMinion.getContinuous() ? "Continuous" : "One-time", this.guiX + this.xSize / 2 + 38, this.guiY + 74, 16777215);
+      this.drawCenteredString(this.fontRendererObj, I18n.format(this.creeperMinion.getContinuous() ? "gui.mutantcreatures.creeperMinion.continuous" : "gui.mutantcreatures.creeperMinion.oneTime"), this.guiX + this.xSize / 2 + 38, this.guiY + 74, 16777215);
       int temp = (int)((this.creeperMinion.getBlastRadius() - 1.0F) * 10.0F);
       sb = (new StringBuilder()).append((float)temp / 10.0F);
       this.drawCenteredString(this.fontRendererObj, sb.toString(), this.guiX + this.xSize / 2 + 38, this.guiY + 94, 16777215);

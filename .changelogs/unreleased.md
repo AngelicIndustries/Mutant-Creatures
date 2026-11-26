@@ -6,6 +6,7 @@
 * Include the upstream AGPLv3 license and update the README.
 * Add a Chemical X mob list (`ChemicalXMobs`, flipped by `ChemicalXMobsIsWhitelist`). By default Chemical X only takes the mobs that have a mutant form, instead of killing any mob without a boss health bar.
 * Feeding a creeper minion gunpowder makes it hiss contentedly (a CC0 recording), and feeding it TNT plays a short fuse.
+* Text that was hardcoded in English now comes from the lang files: the creeper minion screen, the "Spawn" on spawn eggs, and a creeper minion's default name. Entities that had no name, such as the creeper minion egg, the mutant skeleton's scattered parts and thrown blocks, now have one in English and Chinese, so mods like WAILA show it. The spider pig is called Spider Pig instead of INCOMPLETE. Thanks to @Omgise for the report.
 * Chemical X's skull spirit now shows its skulls on servers too. In singleplayer its particles no longer read the server's world from the client thread, which ArchaicFix warned about on every throw.
 * The mutant zombie no longer floats a little above the ground: its bent legs ended about a tenth of a block short.
 * Add the mutant husk: the mutant zombie in a husk's colours, spawning in deserts (`SpawnMutantHusk`). Its slam and leap always leave the target hungry. With Et Futurum Requiem, Chemical X turns a husk into one and its roar raises husks; existing configs need `etfuturum.husk` added to `ChemicalXMobs`.

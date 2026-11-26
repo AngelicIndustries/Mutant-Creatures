@@ -44,7 +44,8 @@ public class MCSpawnEgg extends Item {
          return super.getItemStackDisplayName(stack);
       }
 
-      return "Spawn " + StatCollector.translateToLocal("entity.MutantCreatures." + registration.getEntityName() + ".name");
+      // Vanilla spawn eggs' "Spawn", in the game's language.
+      return StatCollector.translateToLocal("item.monsterPlacer.name").trim() + " " + StatCollector.translateToLocal("entity.MutantCreatures." + registration.getEntityName() + ".name");
    }
 
    @SideOnly(Side.CLIENT)

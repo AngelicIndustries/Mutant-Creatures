@@ -84,7 +84,7 @@ import org.apache.logging.log4j.Logger;
    name = "Mutant Creatures",
    version = industries.angelic.mutantcreatures.Tags.VERSION,
    acceptedMinecraftVersions = "[1.7.10]",
-   dependencies = "required-after:AnimationAPI@[1.2.4,);required-after:salamander@[0.0.2,);required-after:unimixins;after:SpecialMobs",
+   dependencies = "required-after:AnimationAPI@[1.2.4,);required-after:salamander;required-after:unimixins;after:SpecialMobs",
    customProperties = {
       @Mod.CustomProperty(k = "license", v = "AGPLv3"),
       @Mod.CustomProperty(k = "issueTrackerUrl", v = "https://github.com/AngelicIndustries/Mutant-Creatures/issues"),
